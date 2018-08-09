@@ -49,7 +49,7 @@ export default {
                     confirmButtonText: '确定',
                 })
             } else if (this.$route.params.id == "竞争力培养") {
-                if (sessionStorage.getItem("rolelist") === "1") {//教务？
+                if (sessionStorage.getItem("rolelist") === "1") {//教务
                     this.$http.post('/369research/yzh/inter/login', qs.stringify({
                         userName: this.userid,
                         passWord: this.accesstoken
@@ -70,7 +70,7 @@ export default {
                             })
                         }
                     })
-                } else if (sessionStorage.getItem("rolelist") === "2") {//教研？
+                } else if (sessionStorage.getItem("rolelist") === "2") {//教研
                     this.$http.post('/369education/yzh/inter/login', qs.stringify({
                         userName: this.userid,
                         passWord: this.accesstoken

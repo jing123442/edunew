@@ -23,7 +23,7 @@ export default {
   name: 'app',
   data() {
     return {
-      accesstoken: ''
+      accesstoken: '123'
     }
   },
   computed: {

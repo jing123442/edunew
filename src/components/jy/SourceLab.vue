@@ -5,7 +5,16 @@
     
             <ul class='labman-menu' id="lab-menu">
                 <router-link tag='li' to='/sourceLab/source' active-class="active" class='labman-menu-item'>
-                    <a href="javascript:;">资源库</a>
+                    <a href="javascript:;">教研管理</a>
+                </router-link>
+                <router-link tag='li' to='/sourceLab/resource' active-class="active" class='labman-menu-item'>
+                    <a href="javascript:;">资源管理</a>
+                </router-link>
+                <router-link tag='li' to='/sourceLab/teachaudit' active-class="active" class='labman-menu-item'>
+                    <a href="javascript:;">教案审核</a>
+                </router-link>
+                <router-link tag='li' to='/sourceLab/testmanagement' active-class="active" class='labman-menu-item'>
+                    <a href="javascript:;">测评管理</a>
                 </router-link>
                 <router-link tag='li' to='/sourceLab/ability' active-class="active" class='labman-menu-item'>
                     <a href="javascript:;">能力评估</a>

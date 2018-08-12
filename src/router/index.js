@@ -20,6 +20,11 @@ const Ability = ()=> import( '@/components/jy/Ability.vue')
 const JobEval = ()=> import( '@/components/jy/JobEval.vue')
 const AddTest = ()=> import( '@/components/jy/AddTest.vue')
 const TestList = ()=> import( '@/components/jy/TestList.vue')
+const Resource = ()=> import( '@/components/jy/Resource.vue')
+const UpFiles = ()=> import( '@/components/jy/UpFiles.vue')
+const Handouts = ()=> import( '@/components/jy/Handouts.vue')
+const TeachAudit = ()=> import( '@/components/jy/TeachAudit.vue')
+const TestManagement = ()=> import( '@/components/jy/TestManagement.vue')
 const StuLogin = ()=> import( '@/components/stu/StuLogin.vue')
 Vue.use(Router)
 const router = new Router({
@@ -74,6 +79,14 @@ const router = new Router({
         { path: 'jobeval', component: JobEval },
         { path: 'addtest', component: AddTest },
         { path: 'testList', component: TestList },
+        { path: 'resource', component: Resource },
+        { path: 'upfiles', component: UpFiles, 
+          children:[{
+            path: 'handouts', component: Handouts
+          }]
+        },
+        { path: 'teachaudit', component: TeachAudit },
+        { path: 'testmanagement', component: TestManagement }
       ]
     },
     {

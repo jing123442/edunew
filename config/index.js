@@ -23,28 +23,28 @@ module.exports = {
   },
   dev: {
     env: require('./dev.env'),
-    port: 8888,
+    port: 8888 ,
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
     '/369manage':{
-      target:'http://localhost:8080',
+      target:'http://123.58.241.146:8180',
       changeOrigin:true,
       // pathRewrite:{
       //   '^/api':''
       // }
     },
     '/369student':{
-      target:'http://localhost:8080',
+      target:'http://123.58.241.146:8180',
       changeOrigin:true
     },
     '/369research':{
-      target:'http://localhost:8080',
+      target:'http://123.58.241.146:8180',
       changeOrigin:true
     },
     '/369education':{
-      target:'http://localhost:8080',
+      target:'http://123.58.241.146:8180',
       changeOrigin:true
     }
 

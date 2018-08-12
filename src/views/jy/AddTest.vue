@@ -79,7 +79,7 @@
 </template>
 <script>
 const jy_url = "/369education";
-import HeadView from '../Head'
+import HeadView from '../../components/Head'
 import { mapGetters } from 'vuex'
 import qs from "qs"
 export default {

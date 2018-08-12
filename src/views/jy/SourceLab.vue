@@ -33,7 +33,7 @@
     </div>
 </template>
 <script>
-import HeadView from '../Head'
+import HeadView from '../../components/Head'
 export default {
     data() {
         return {

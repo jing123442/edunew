@@ -47,7 +47,7 @@
     </div>
 </template>
 <script>
-import HeadView from './Head'
+import HeadView from '../components/Head'
 export default {
     name: 'jingzheng',
     data() {

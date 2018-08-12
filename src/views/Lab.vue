@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import HeadView from './Head'
+import HeadView from '../components/Head'
 import { mapMutations} from 'vuex'
 export default {
   name: 'hello',

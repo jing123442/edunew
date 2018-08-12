@@ -33,8 +33,8 @@ const router = new Router({
     {
       path: '/',
       name: 'home',
-      component: Home,
-
+      // component: Home,
+      component: Login,
     },
     {
       path: '/lab',

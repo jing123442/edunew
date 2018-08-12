@@ -77,9 +77,16 @@ export default {
   methods: {
     typeChange(){
       console.log(this.type);
-      if(this.type=="讲义"){
+      if(this.type=="讲义"||this.type=="视频"||this.type=="资料"){
         this.$router.push({
-          path: "/sourceLab/upfiles/handouts",
+          path: "/sourceLab/upfiles/uphandouts",
+          query:{
+            id: '111'
+          }
+        })
+      } else if(this.type=="案例"){
+        this.$router.push({
+          path: "/sourceLab/upfiles/upcase",
           query:{
             id: '111'
           }

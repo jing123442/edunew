@@ -5,12 +5,14 @@ import App from './App'
 import router from './router'
 import store from './store'
 import axios from 'axios'
+import qs from 'qs'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
 require('./assets/css/base.less')
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.prototype.$http = axios;
+Vue.prototype.qs = qs;
 axios.defaults.timeout = 5000;
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
 // axios.interceptors.request.use(

@@ -34,7 +34,6 @@
       <span class="typelabel">类型：</span>
       <el-button v-for="item in type" :key="item" size="small" v-model="typeItem">{{item}}</el-button>
     </el-row>
-    </el-row>
     <el-row class="difficulty">
       <span class="typelabel">难度：</span>
       <el-button v-for="item in difficulty" :key="item" size="small" v-model="difficultyItem" :class="{btnbg: btnstyle}" @click.native="btnStyle">{{item}}</el-button>
@@ -44,7 +43,7 @@
         <el-option v-for="item in lessonName" :key="item"  :value="item">{{item}}</el-option>
       </el-select>
       <el-input v-model="searchContent" placeholder="请输入搜索内容" clearable></el-input>
-      <el-button type="primary">查询</el-button>
+      <el-button type="primary" @click="search">查询</el-button>
     </el-row>
     <p class="cuttingLine"></p>
     <el-row class="coursewareshow">
@@ -109,6 +108,17 @@ export default {
     };
   },
   methods: {
+    search(){
+      console.log(11111);
+      this.$http.get(
+        '/369manage/yzh/manage/inter/getDictByTypeCode',
+        this.qs.stringify({
+          typeCode: 1
+        }))
+        .then(function(data){
+        console.log(data);
+      })
+    },
     createLesson(){
       this.$router.push({
         path:'/sourceLab/upfiles',

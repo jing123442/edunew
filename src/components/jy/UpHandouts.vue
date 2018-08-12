@@ -1,5 +1,5 @@
 <template>
-  <div id="handouts">
+  <div id="uphandouts">
     <div class="contenttitle">内容信息</div>
     <div class="contentinfo">
       <el-row class="name">
@@ -51,7 +51,7 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-#handouts {
+#uphandouts {
     margin-top: 40px;
 }
 .contenttitle{

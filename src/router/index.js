@@ -22,7 +22,8 @@ const AddTest = ()=> import( '@/components/jy/AddTest.vue')
 const TestList = ()=> import( '@/components/jy/TestList.vue')
 const Resource = ()=> import( '@/components/jy/Resource.vue')
 const UpFiles = ()=> import( '@/components/jy/UpFiles.vue')
-const Handouts = ()=> import( '@/components/jy/Handouts.vue')
+const UpHandouts = ()=> import( '@/components/jy/UpHandouts.vue')
+const UpCase = ()=> import( '@/components/jy/UpCase.vue')
 const TeachAudit = ()=> import( '@/components/jy/TeachAudit.vue')
 const TestManagement = ()=> import( '@/components/jy/TestManagement.vue')
 const StuLogin = ()=> import( '@/components/stu/StuLogin.vue')
@@ -86,9 +87,14 @@ const router = new Router({
         { path: 'testList', component: TestList },
         { path: 'resource', component: Resource },
         { path: 'upfiles', component: UpFiles, 
-          children:[{
-            path: 'handouts', component: Handouts
-          }]
+          children:[
+            {
+              path: 'uphandouts', component: UpHandouts
+            },
+            {
+              path: 'upcase', component: UpCase
+            }
+        ]
         },
         { path: 'teachaudit', component: TeachAudit },
         { path: 'testmanagement', component: TestManagement }

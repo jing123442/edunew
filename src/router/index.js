@@ -46,6 +46,11 @@ const router = new Router({
       component: Login
     },
     {
+      path: '/login',
+      name: 'login',
+      component: Login
+    },
+    {
       path: '/JingZheng/:userid',
       name: 'jingzheng',
       component: JingZheng

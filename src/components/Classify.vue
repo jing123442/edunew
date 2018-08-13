@@ -33,6 +33,7 @@
           :key="item.id"
           :label="item.name"
           :value="item.id">
+
         </el-option>
       </el-select>
     </div>
@@ -89,6 +90,7 @@ export default {
       });
     },
     thirdChange(value) {
+      this.$emit('changeCode',this.thirdValue);
       if (this.level > 3) {
         this.getClassifyByPid(value).then(data => {
           this.fourthList = data.data.classifies;

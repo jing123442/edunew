@@ -14,6 +14,7 @@ const Gaimi = ()=> import( '@/views/gaimi')
 const NewCourse = ()=> import( '@/views/newCourse')
 const NewClass = ()=> import( '@/views/newClass')
 const NewXueJi = ()=> import( '@/views/newXueJi')
+const Test = ()=> import( '@/views/Test')
 const SourceLab = ()=> import( '@/views/jy/SourceLab.vue')
 const Source = ()=> import( '@/views/jy/Source.vue')
 const Ability = ()=> import( '@/views/jy/Ability.vue')
@@ -38,6 +39,12 @@ const router = new Router({
       name: 'home',
       // component: Home,
       component: Login,
+    },
+    {
+      path: '/Test',
+      name: 'test',
+      // component: Home,
+      component: Test,
     },
     {
       path: '/lab',

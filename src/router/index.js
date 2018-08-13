@@ -1,32 +1,35 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-const Home = ()=> import('@/components/Home')
-const Lab = ()=> import( '@/components/Lab')
-const Login = ()=> import( '@/components/Login')
-const JingZheng = ()=> import( '@/components/JingZheng')
-const LabMan = ()=> import( '@/components/LabMan')
-const Course = ()=> import( '@/components/Course')
-const Classs = ()=> import( '@/components/Classs')
-const XueJi = ()=> import( '@/components/XueJi')
-const StuBaseNews = ()=> import( '@/components/stuBaseNews')
-const Cultivate = ()=> import( '@/components/Cultivate')
-const Gaimi = ()=> import( '@/components/gaimi')
-const NewCourse = ()=> import( '@/components/newCourse')
-const NewClass = ()=> import( '@/components/newClass')
-const NewXueJi = ()=> import( '@/components/newXueJi')
-const SourceLab = ()=> import( '@/components/jy/SourceLab.vue')
-const Source = ()=> import( '@/components/jy/Source.vue')
-const Ability = ()=> import( '@/components/jy/Ability.vue')
-const JobEval = ()=> import( '@/components/jy/JobEval.vue')
-const AddTest = ()=> import( '@/components/jy/AddTest.vue')
-const TestList = ()=> import( '@/components/jy/TestList.vue')
-const Resource = ()=> import( '@/components/jy/Resource.vue')
-const UpFiles = ()=> import( '@/components/jy/UpFiles.vue')
-const UpHandouts = ()=> import( '@/components/jy/UpHandouts.vue')
-const UpCase = ()=> import( '@/components/jy/UpCase.vue')
-const TeachAudit = ()=> import( '@/components/jy/TeachAudit.vue')
-const TestManagement = ()=> import( '@/components/jy/TestManagement.vue')
-const StuLogin = ()=> import( '@/components/stu/StuLogin.vue')
+const Home = ()=> import('@/views/Home')
+const Lab = ()=> import( '@/views/Lab')
+const Login = ()=> import( '@/views/Login')
+const JingZheng = ()=> import( '@/views/JingZheng')
+const LabMan = ()=> import( '@/views/LabMan')
+const Course = ()=> import( '@/views/Course')
+const Classs = ()=> import( '@/views/Classs')
+const XueJi = ()=> import( '@/views/XueJi')
+const StuBaseNews = ()=> import( '@/views/stuBaseNews')
+const Cultivate = ()=> import( '@/views/Cultivate')
+const Gaimi = ()=> import( '@/views/gaimi')
+const NewCourse = ()=> import( '@/views/newCourse')
+const NewClass = ()=> import( '@/views/newClass')
+const NewXueJi = ()=> import( '@/views/newXueJi')
+const SourceLab = ()=> import( '@/views/jy/SourceLab.vue')
+const Source = ()=> import( '@/views/jy/Source.vue')
+const Ability = ()=> import( '@/views/jy/Ability.vue')
+const JobEval = ()=> import( '@/views/jy/JobEval.vue')
+const AddTest = ()=> import( '@/views/jy/AddTest.vue')
+const TestList = ()=> import( '@/views/jy/TestList.vue')
+const Resource = ()=> import( '@/views/jy/Resource.vue')
+const UpFiles = ()=> import( '@/views/jy/UpFiles.vue')
+const UpHandouts = ()=> import( '@/views/jy/UpHandouts.vue')
+const UpCase = ()=> import( '@/views/jy/UpCase.vue')
+const TeachAudit = ()=> import( '@/views/jy/TeachAudit.vue')
+const CriculumDesign = ()=> import( '@/views/jy/CriculumDesign.vue')
+const CreatePlan = ()=> import( '@/views/jy/CreatePlan.vue')
+const TestManagement = ()=> import( '@/views/jy/TestManagement.vue')
+const StuLogin = ()=> import( '@/views/stu/StuLogin.vue')
+const MyCourse = ()=> import( '@/views/stu/MyCourse.vue')
 Vue.use(Router)
 const router = new Router({
   routes: [
@@ -87,16 +90,18 @@ const router = new Router({
         { path: 'testList', component: TestList },
         { path: 'resource', component: Resource },
         { path: 'upfiles', component: UpFiles, 
-          children:[
-            {
-              path: 'uphandouts', component: UpHandouts
-            },
-            {
-              path: 'upcase', component: UpCase
-            }
-        ]
+          // children:[
+          //   {
+          //     path: 'uphandouts', component: UpHandouts
+          //   },
+          //   {
+          //     path: 'upcase', component: UpCase
+          //   }
+        // ]
         },
         { path: 'teachaudit', component: TeachAudit },
+        { path: 'criculumdesign', component: CriculumDesign },
+        { path: 'createplan', component: CreatePlan },
         { path: 'testmanagement', component: TestManagement }
       ]
     },
@@ -107,7 +112,8 @@ const router = new Router({
         { path: 'gaimi', component: Gaimi },
       ]
     },
-    { path: '/stulogin', component: StuLogin }
+    { path: '/stulogin', component: StuLogin },
+    { path: '/mycourse', component: MyCourse }
 
   ]
 

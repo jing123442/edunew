@@ -3,40 +3,18 @@
     <el-tabs v-model="activeName">
       <el-tab-pane label="资源库" name="first"></el-tab-pane>
     </el-tabs>
-    <el-row class="classify">
+     <el-row class="classifybox">
       <span class="classifylabel">分类：</span>
-      <el-select v-model="firstValue" placeholder="请选择一级分类">
-        <el-option
-          v-for="item in firstOptios"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value">
-        </el-option>
-      </el-select>
-      <el-select v-model="secondValue" placeholder="请选择二级分类">
-        <el-option
-          v-for="item in firstOptios"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value">
-        </el-option>
-      </el-select>
-      <el-select v-model="thirdValue" placeholder="请选择三级分类">
-        <el-option
-          v-for="item in firstOptios"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value">
-        </el-option>
-      </el-select>
-    </el-row>
+    <classify/>
+     </el-row>
     <el-row class="type">
       <span class="typelabel">类型：</span>
-      <el-button v-for="item in type" :key="item" size="small" v-model="typeItem">{{item}}</el-button>
+      <el-button v-for="item in type" :key="item.id" size="small" v-model="typeItem">{{item.name}}</el-button>
     </el-row>
     <el-row class="difficulty">
       <span class="typelabel">难度：</span>
-      <el-button v-for="item in difficulty" :key="item" size="small" v-model="difficultyItem" :class="{btnbg: btnstyle}" @click.native="btnStyle">{{item}}</el-button>
+      <el-button v-for="item in difficulty" :key="item.id" size="small" v-model="difficultyItem" :class="{btnbg: btnstyle}" @click.native="btnStyle">{{item.name}}</el-button>
+      
     </el-row>
     <el-row class="search">
       <el-select v-model="lessonValue" placeholder="名称">
@@ -72,6 +50,7 @@
   </div>
 </template>
 <script>
+import classify from '../../components/Classify'
 export default {
   data() {
     return {
@@ -97,9 +76,9 @@ export default {
       thirdtOptios: [],
       thirdValue: "",
       btnstyle: false,
-      type: ["全部", "讲义", "视频"],
+      type: [{name:"全部",id:''}],
       typeItem: "",
-      difficulty: ["全部", "入门", "初级"],
+      difficulty: [{name:"全部",id:''}],
       difficultyItem: "",
       lessonName: ["发布者", "简介"],
       lessonValue: "",
@@ -107,7 +86,23 @@ export default {
       currentPage: 5,
     };
   },
+  mounted(){
+   this.getTypes();
+   this.getdifficulty();
+  },
   methods: {
+    //获取类型数据
+    getTypes(){
+      this.$http.get('/369manage/yzh/manage/inter/getDictByTypeCode',{params:{typeCode:1}}).then((data)=>{
+           this.type = this.type.concat(data.data.dictionaries);
+        })
+    },
+    //获取难度数据
+    getdifficulty(){
+      this.$http.get('/369manage/yzh/manage/inter/getDictByTypeCode',{params:{typeCode:2}}).then((data)=>{
+           this.difficulty = this.difficulty.concat(data.data.dictionaries);
+        })
+    },
     search(){
       console.log(11111);
       this.$http.get(
@@ -127,6 +122,9 @@ export default {
     handleCurrentChange(val) {
       console.log(`当前页: ${val}`);
     }
+  },
+  components:{
+    classify
   }
 };
 </script>
@@ -142,11 +140,14 @@ export default {
 .el-row {
   margin-bottom: 15px;
 }
-.classifylabel,.typelabel {
-  font-weight: bold;
-}
+
 .el-select {
   margin: 0 3px;
+}
+.classifylabel{
+  display: inline-block;
+  vertical-align: top;
+  padding-top: 5px;
 }
 .search {
   div {
@@ -225,5 +226,10 @@ export default {
 .block{
   width: 500px;
   margin: 0 auto;
+}
+
+
+#uphandouts {
+    margin-top: 40px;
 }
 </style>

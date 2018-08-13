@@ -1,7 +1,7 @@
 <template>
   <div id="testmanagement">
       <el-tabs v-model="activeName">
-      <el-tab-pane label="测评管理" name="first"></el-tab-pane>
+      <el-tab-pane label="课程设计" name="first"></el-tab-pane>
     </el-tabs>
     <el-row class="classify">
       <span class="classifylabel">分类：</span>
@@ -106,7 +106,7 @@ export default {
   methods: {
     handleCurrentChange(val) {
         console.log(`当前页: ${val}`);
-      }
+    }
   }
 };
 </script>

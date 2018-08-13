@@ -34,7 +34,7 @@
     
             </ul>
             <ul class='company-list'>
-                <li v-for='val in item2' class="company-item">{{val}}</li>
+                <li v-for='val in item2' class="company-item" @click="practice">{{val}}</li>
             </ul>
             <ul class='company-list mr129'>
                 <li v-for='val in item3' class="company-item">{{val}}</li>
@@ -47,7 +47,7 @@
     </div>
 </template>
 <script>
-import HeadView from './Head'
+import HeadView from '../components/Head'
 export default {
     name: 'jingzheng',
     data() {
@@ -60,6 +60,13 @@ export default {
     },
     created() {
         this.$store.dispatch('SET_TITLE', '竞争力培养')
+    },
+    methods:{
+        practice(){
+            this.$router.push({
+                path: '/mycourse'
+            })
+        }
     },
     components: {
         HeadView

@@ -127,7 +127,7 @@
                         <td>{{item.taskstandard}}</td>
                     </tr>
                 </table>
-                <div class="source-con-file" v-for="list in item.taskFileList">
+                <div class="source-con-file" v-for="list in item.taskFileList" :key="list">
                     <div class="item">
                         <a :href="list.fileurl" class="source-item " :download="list.download">
                             <div class="source-img">

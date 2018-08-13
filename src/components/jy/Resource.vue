@@ -111,10 +111,7 @@ export default {
     search(){
       console.log(11111);
       this.$http.get(
-        '/369manage/yzh/manage/inter/getDictByTypeCode',
-        this.qs.stringify({
-          typeCode: 1
-        }))
+        '/369manage/yzh/manage/inter/getDictByTypeCode',{params:{typeCode: 1}})
         .then(function(data){
         console.log(data);
       })

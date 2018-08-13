@@ -251,7 +251,6 @@ export default {
     },
     classifyinfo(val){
       this.classifyid = val;
-      console.log(this.classifyid);
     },
     handlePreview(file) {
       console.log('file')
@@ -263,6 +262,7 @@ export default {
     },
     filesuccess(data){
       this.resourceFileId=data.filePath;
+      console.log(this.resourceFileId);
     },
     handleRemove() {},
     beforeRemove() {},
@@ -303,7 +303,8 @@ export default {
         this.difficultyid,
         this.resourceFileId,
         this.thumbnailId,
-        this.intro
+        this.intro,
+        sessionStorage.getItem('keyId')
         )
       this.$http.post(
         '/369education/yzh/education/inter/addResource',
@@ -312,14 +313,19 @@ export default {
           typeid: this.typeid,
           name: this.name,
           defficultyid: this.difficultyid,
-          resourceFile: this.resourceFile,
+          resourceFile: this.resourceFileId,
           thumbnail: this.thumbnailId,
-          intro: this.intro
+          intro: this.intro,
+          createUser: sessionStorage.getItem('keyId')
           })
       ).then((data)=>{
-        console.log(data);
+         this.$alert('班级添加成功', '提示信息', {
+            confirmButtonText: '确定',
+          }).then(()=>{
+            this.$router.push({path:'/sourceLab/resource'});
+          });
       })
-    }
+    } 
   },
   components: {
     classify

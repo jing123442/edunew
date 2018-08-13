@@ -39,6 +39,9 @@ export default {
       classifyid:"",
       intro: "",
       name: "",
+      // 上传图片点击展示大图时触发变量
+      dialogImageUrl: '',
+      dialogVisible: false,
       //缩略图id
       thumbnailId:""
     };
@@ -49,6 +52,15 @@ export default {
   methods: {
     classifyinfo(val){
       this.classifyid = val;
+    },
+    handlePreview(file) {
+      // console.log(file);
+      this.dialogImageUrl = file.url;
+      this.dialogVisible = true;
+    },
+    imgsuccess(data){
+      this.thumbnailId=data.filePath;
+      console.log(data) 
     }
   },
   components: {

@@ -20,7 +20,7 @@
                     <td>{{item.taskstandard}}</td>
                 </tr>
             </table>
-            <div class="source-con-file clearfix" v-for="list in item.taskFileList">
+            <div class="source-con-file clearfix" v-for="list in item.taskFileList" :key="list.fileurl">
                 <div class="item">
                     <a :href="list.fileurl" class="source-item " :download="list.download">
                         <div class="source-img">
@@ -47,7 +47,7 @@
                     </tr>
                 </table>
                 <el-tabs v-model="activeName" @tab-click="getClassTest">
-                    <el-tab-pane :label="item" :name="$key" v-for="(item,$key,index) in checkedClassObj" :key="$key"></el-tab-pane>
+                    <el-tab-pane :label="item" :name="$key" v-for="(item,$key) in checkedClassObj" :key="$key"></el-tab-pane>
                 </el-tabs>
                 <el-table :data="stuTestList" border style="width: 100%" class='course-list' row-key='stuTestList.stuId' current-row-key v-show="stuTestList.length!==0">
                     <el-table-column fixed prop="index" label="序号" width="52" class="course-index">

@@ -98,6 +98,7 @@ export default {
       status: ["使用中", "审核通过","未审核"],
       statusValue: "",
       currentPage:1,
+      searchContent: ''
     };
   },
   methods: {

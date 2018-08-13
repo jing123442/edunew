@@ -19,6 +19,6 @@ export default {
 </script>
 <style lang="less" scoped>
 #structuraldesign {
-
+  
 }
 </style>

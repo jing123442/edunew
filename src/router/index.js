@@ -14,6 +14,7 @@ const Gaimi = ()=> import( '@/views/gaimi')
 const NewCourse = ()=> import( '@/views/newCourse')
 const NewClass = ()=> import( '@/views/newClass')
 const NewXueJi = ()=> import( '@/views/newXueJi')
+const Test = ()=> import( '@/views/Test')
 const SourceLab = ()=> import( '@/views/jy/SourceLab.vue')
 const Source = ()=> import( '@/views/jy/Source.vue')
 const Ability = ()=> import( '@/views/jy/Ability.vue')
@@ -25,8 +26,11 @@ const UpFiles = ()=> import( '@/views/jy/UpFiles.vue')
 const UpHandouts = ()=> import( '@/views/jy/UpHandouts.vue')
 const UpCase = ()=> import( '@/views/jy/UpCase.vue')
 const TeachAudit = ()=> import( '@/views/jy/TeachAudit.vue')
+const CriculumDesign = ()=> import( '@/views/jy/CriculumDesign.vue')
+const CreatePlan = ()=> import( '@/views/jy/CreatePlan.vue')
 const TestManagement = ()=> import( '@/views/jy/TestManagement.vue')
 const StuLogin = ()=> import( '@/views/stu/StuLogin.vue')
+const MyCourse = ()=> import( '@/views/stu/MyCourse.vue')
 Vue.use(Router)
 const router = new Router({
   routes: [
@@ -35,6 +39,12 @@ const router = new Router({
       name: 'home',
       // component: Home,
       component: Login,
+    },
+    {
+      path: '/Test',
+      name: 'test',
+      // component: Home,
+      component: Test,
     },
     {
       path: '/lab',
@@ -97,6 +107,8 @@ const router = new Router({
         // ]
         },
         { path: 'teachaudit', component: TeachAudit },
+        { path: 'criculumdesign', component: CriculumDesign },
+        { path: 'createplan', component: CreatePlan },
         { path: 'testmanagement', component: TestManagement }
       ]
     },
@@ -107,7 +119,8 @@ const router = new Router({
         { path: 'gaimi', component: Gaimi },
       ]
     },
-    { path: '/stulogin', component: StuLogin }
+    { path: '/stulogin', component: StuLogin },
+    { path: '/mycourse', component: MyCourse }
 
   ]
 

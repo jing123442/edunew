@@ -1,7 +1,7 @@
 <template>
-  <div id="testmanagement">
+  <div id="criculumdesign">
       <el-tabs v-model="activeName">
-      <el-tab-pane label="课程设计" name="first"></el-tab-pane>
+      <el-tab-pane label="测评管理" name="first"></el-tab-pane>
     </el-tabs>
     <el-row class="classify">
       <span class="classifylabel">分类：</span>
@@ -45,8 +45,8 @@
     </el-row>
     <p class="cuttingLine"></p>
     <div class="teachplan"> 
-      <div class="createEvaluations">
-        <p>创建测评</p>
+      <div class="createEvaluations" @click="designLink">
+        <p>创建教案</p>
       </div>
       <div class="courseware" v-for="item in 3" :key="item">
         <img src="../../assets/images/u633.png" alt="缩略图">
@@ -106,6 +106,11 @@ export default {
   methods: {
     handleCurrentChange(val) {
         console.log(`当前页: ${val}`);
+    },
+    designLink(){
+      this.$router.push({
+        path: '/sourceLab/createplan'
+      })
     }
   }
 };
@@ -116,7 +121,7 @@ export default {
   background-color: #cff;
 }
 
-#testmanagement {
+#criculumdesign {
   margin: 20px 260px 20px 40px;
 }
 .el-row {

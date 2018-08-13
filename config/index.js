@@ -29,22 +29,22 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
     '/369manage':{
-      target:'http://localhost:8080',
+      target:'http://192.168.5.21:8080',
       changeOrigin:true,
       // pathRewrite:{
       //   '^/api':''
       // }
     },
     '/369student':{
-      target:'http://localhost:8080',
+      target:'http://192.168.5.21:8080',
       changeOrigin:true
     },
     '/369research':{
-      target:'http://localhost:8080',
+      target:'http://192.168.5.21:8080',
       changeOrigin:true
     },
     '/369education':{
-      target:'http://localhost:8080',
+      target:'http://192.168.5.21:8080',
       changeOrigin:true
     }
 

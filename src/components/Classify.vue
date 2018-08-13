@@ -26,12 +26,14 @@
         </el-option>
       </el-select>
       <br/>
-      <el-select v-model="fourthValue" placeholder="请选择能力达成" v-show="level>3">
+      <br/>
+      <el-select v-model="fourthValue" class="fourthValue" placeholder="请选择能力达成" v-show="level>3">
         <el-option
           v-for="item in fourthList"
           :key="item.id"
           :label="item.name"
           :value="item.id">
+
         </el-option>
       </el-select>
     </div>
@@ -88,6 +90,7 @@ export default {
       });
     },
     thirdChange(value) {
+      this.$emit('changeCode',this.thirdValue);
       if (this.level > 3) {
         this.getClassifyByPid(value).then(data => {
           this.fourthList = data.data.classifies;
@@ -98,14 +101,15 @@ export default {
 };
 </script>
 <style lang='less' scoped>
-.classifylabel {
-  font-weight: bold;
-  margin: 0 30px 0 20px;
-}
-.red {
-  color: red;
-}
 .classify {
+  height: 36px;
+  line-height: 0;
   display: inline-block;
+}
+.el-select{
+  width: 197px;
+}
+.fourthValue{
+  margin-top: 10px;
 }
 </style>

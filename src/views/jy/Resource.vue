@@ -3,7 +3,7 @@
     <el-tabs v-model="activeName">
       <el-tab-pane label="资源库" name="first"></el-tab-pane>
     </el-tabs>
-     <el-row class="classify">
+     <el-row class="classifybox">
       <span class="classifylabel">分类：</span>
     <classify/>
      </el-row>
@@ -104,10 +104,12 @@ export default {
         })
     },
     search(){
-
-    },
-    btnStyle(){
-
+      console.log(11111);
+      this.$http.get(
+        '/369manage/yzh/manage/inter/getDictByTypeCode',{params:{typeCode: 1}})
+        .then(function(data){
+        console.log(data);
+      })
     },
     createLesson(){
       this.$router.push({
@@ -141,6 +143,11 @@ export default {
 
 .el-select {
   margin: 0 3px;
+}
+.classifylabel{
+  display: inline-block;
+  vertical-align: top;
+  padding-top: 5px;
 }
 .search {
   div {

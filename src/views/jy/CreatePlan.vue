@@ -1,18 +1,18 @@
 <template>
-  <div id="upfiles">
+  <div id="createplan">
     <el-tabs v-model="activeName">
       <el-tab-pane label="资源库" name="first"></el-tab-pane>
     </el-tabs>
-    <h2>上传资源</h2>
+    <h2>创建教案--具体内容没写</h2>
     <div class="classifytitle">分类信息</div>
     <div class="classifyinfo">
       <el-row class="classifybox">
         <span class="classifylabel"><span class="red">*</span>分类：</span>
-      <classify @changeCode="classifyinfo" />
+      <classify />
       </el-row>
       <el-row class="type">
         <span class="typelabel"><span class="red">*</span>类型：</span>
-        <el-select v-model="typeid" placeholder="请选择" @change="typeChange">
+        <el-select v-model="type" placeholder="请选择" @change="typeChange">
           <el-option
             v-for="item in typeList"
             :key="item.id"
@@ -23,14 +23,14 @@
       </el-row>
       <div id="uphandouts" v-show="showState>0">
     <div class="contenttitle" >内容信息</div>
-    <div class="contentinfo" :style="showState>1? 'height: 1110px':'height: 650px'">
+    <div class="contentinfo" :style="showState>1? 'height: 1070px':'height: 580px'">
       <el-row class="name">
         <span class="namelabel"><span class="red">*</span>名称：</span>
         <el-input v-model="name" placeholder="30个汉字以内"></el-input>
       </el-row>
       <el-row class="difficulty">
         <span class="difficultylabel"><span class="red">*</span>难度：</span>
-        <el-select v-model="difficultyid" placeholder="请选择" @change="difficultyChange">
+        <el-select v-model="type_n" placeholder="请选择" @change="difficultyChange">
           <el-option
             v-for="item in difficulty"
             :key="item.id"
@@ -157,29 +157,34 @@
         <!-- <div class="up_file">选择文件</div> -->
         <el-upload
           class="up_file"
-          action="/369education/yzh/education/inter/uploadFile"
+          action="https://jsonplaceholder.typicode.com/posts/"
+          :on-preview="handlePreview"
+          :on-remove="handleRemove"
+          :before-remove="beforeRemove"
           multiple
           :limit="3"
-          :on-success="filesuccess">
+          :on-exceed="handleExceed"
+          :file-list="fileList">
           <el-button size="small" type="primary">选择文件</el-button>
         </el-upload>
       </el-row>
       <el-row class="">
         <span class="namelabel"><span class="red">*</span>缩略图：</span>
         <!-- <div class="up_file">选择文件</div> -->
-        <!-- <div class="up_file_bg">    -->
+        <div class="up_file_bg">   
           <el-upload
-            class="up_img"
-            action="/369education/yzh/education/inter/uploadFile"
-            list-type="picture-card"
+            class="up_file"
+            action="https://jsonplaceholder.typicode.com/posts/"
             :on-preview="handlePreview"
-            :on-success="imgsuccess">
+            :on-remove="handleRemove"
+            :before-remove="beforeRemove"
+            multiple
+            :limit="3"
+            :on-exceed="handleExceed"
+            :file-list="fileList">
             <el-button size="small" type="primary">选择图片</el-button>
           </el-upload>
-          <el-dialog :visible.sync="dialogVisible">
-            <img width="100%" :src="dialogImageUrl" alt="">
-          </el-dialog>
-        <!-- </div> -->
+        </div>
       </el-row>
       <!-- <el-row class="thumb">
         <span class="namelabel"><span class="red">*</span>简介：</span>
@@ -208,30 +213,16 @@ import classify from "../../components/Classify";
 export default {
   data() {
     return {
-      //分类id
-      classifyid:"",
-      //难度集合及id
       difficulty: [],
-      difficultyid: "",
-      //类型集合及id
-      typeList: [],
-      typeid: "",
-      // 资源文件id
-      resourceFile: "",
+      type: "",
+      type_n: "",
       intro: "",
       fileList: [],
       showState: 0,
       textarea: "",
+      typeList: [],
       name: "",
-      activeName: "",
-
-      // 上传图片点击展示大图时触发变量
-      dialogImageUrl: '',
-      dialogVisible: false,
-      //缩略图id
-      thumbnailId:"",
-      //资源文件id
-      resourceFileId:""
+      activeName: ""
     };
   },
   created() {
@@ -249,21 +240,7 @@ export default {
           this.typeList = this.typeList.concat(data.data.dictionaries);
         });
     },
-    classifyinfo(val){
-      this.classifyid = val;
-      console.log(this.classifyid);
-    },
-    handlePreview(file) {
-      console.log('file')
-      this.dialogImageUrl = file.url;
-      this.dialogVisible = true;
-    },
-    imgsuccess(data){
-      this.thumbnailId=data.filePath;
-    },
-    filesuccess(data){
-      this.resourceFileId=data.filePath;
-    },
+    handlePreview() {},
     handleRemove() {},
     beforeRemove() {},
     handleExceed(data) {},
@@ -296,26 +273,9 @@ export default {
         });
     },
     put(){
-      console.log(
-        this.classifyid,
-        this.name,
-        this.typeid,
-        this.difficultyid,
-        this.resourceFileId,
-        this.thumbnailId,
-        this.intro
-        )
       this.$http.post(
         '/369education/yzh/education/inter/addResource',
-        this.qs.stringify({
-          classifyid:this.classifyid,
-          typeid: this.typeid,
-          name: this.name,
-          defficultyid: this.difficultyid,
-          resourceFile: this.resourceFile,
-          thumbnail: this.thumbnailId,
-          intro: this.intro
-          })
+        this.qs.stringify({})
       ).then((data)=>{
         console.log(data);
       })
@@ -327,7 +287,7 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-#upfiles {
+#createplan {
   margin: 20px 260px 20px 40px;
   .el-row>span,div>span{
     padding-top:5px;
@@ -345,9 +305,6 @@ export default {
     text-align: center;
     background-color: rgb(242,242,242);
     padding: 46px 0; 
-    display: inline-block;
-  }
-  .up_img{
     display: inline-block;
   }
   h2 {

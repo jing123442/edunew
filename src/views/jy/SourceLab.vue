@@ -10,6 +10,9 @@
                 <router-link tag='li' to='/sourceLab/resource' active-class="active" class='labman-menu-item'>
                     <a href="javascript:;">资源管理</a>
                 </router-link>
+                <router-link tag='li' to='/sourceLab/criculumdesign' active-class="active" class='labman-menu-item'>
+                    <a href="javascript:;">课程设计</a>
+                </router-link>
                 <router-link tag='li' to='/sourceLab/teachaudit' active-class="active" class='labman-menu-item'>
                     <a href="javascript:;">教案审核</a>
                 </router-link>

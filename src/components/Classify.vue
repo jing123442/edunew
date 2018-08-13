@@ -71,12 +71,14 @@ export default {
       });
     },
     getFistClassify() {
+      var that = this;
       this.$http
         .get("/369manage/yzh/manage/inter/getClassifyByLevel", {
           params: { level: 1 }
         })
         .then(data => {
-          this.firstList = data.data.classifies;
+          that.firstList = data.data.classifies;
+          console.log(data);
         });
     },
     firstChange(value) {

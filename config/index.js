@@ -28,23 +28,46 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
+
+    //本地
+    // '/369manage':{
+    //   target:'http://192.168.5.21:8080',
+    //   changeOrigin:true,
+    //   // pathRewrite:{
+    //   //   '^/api':''
+    //   // }
+    // },
+    // '/369student':{
+    //   target:'http://192.168.5.21:8080',
+    //   changeOrigin:true
+    // },
+    // '/369research':{
+    //   target:'http://192.168.5.21:8080',
+    //   changeOrigin:true
+    // },
+    // '/369education':{
+    //   target:'http://192.168.5.21:8080',
+    //   changeOrigin:true
+    // }
+
+    //线上
     '/369manage':{
-      target:'http://192.168.5.21:8080',
+      target:'http://123.58.241.146:8180',
       changeOrigin:true,
       // pathRewrite:{
       //   '^/api':''
       // }
     },
     '/369student':{
-      target:'http://192.168.5.21:8080',
+      target:'http://123.58.241.146:8180',
       changeOrigin:true
     },
     '/369research':{
-      target:'http://192.168.5.21:8080',
+      target:'http://123.58.241.146:8180',
       changeOrigin:true
     },
     '/369education':{
-      target:'http://192.168.5.21:8080',
+      target:'http://123.58.241.146:8180',
       changeOrigin:true
     }
 

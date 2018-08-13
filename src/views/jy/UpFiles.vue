@@ -253,12 +253,13 @@ export default {
       this.classifyid = val;
     },
     handlePreview(file) {
-      console.log('file')
+      // console.log(file);
       this.dialogImageUrl = file.url;
       this.dialogVisible = true;
     },
     imgsuccess(data){
       this.thumbnailId=data.filePath;
+      // console.log(data)
     },
     filesuccess(data){
       this.resourceFileId=data.filePath;

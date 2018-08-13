@@ -5,16 +5,15 @@
     </el-tabs>
      <el-row class="classifybox">
       <span class="classifylabel">分类：</span>
-    <classify/>
+    <classify  @changeCode="classifyinfo"/>
      </el-row>
     <el-row class="type">
       <span class="typelabel">类型：</span>
-      <el-button v-for="item in type" :key="item.id" size="small" v-model="typeItem">{{item.name}}</el-button>
+      <button v-for="(item,index) in type" :key="item.id" size="small" :class="{btnstyle:true,btnactive:index==typeIndex}" @click="typeChange(index,item.id)">{{item.name}}</button>
     </el-row>
     <el-row class="difficulty">
       <span class="typelabel">难度：</span>
-      <el-button v-for="item in difficulty" :key="item.id" size="small" v-model="difficultyItem" :class="{btnbg: btnstyle}" @click.native="btnStyle">{{item.name}}</el-button>
-      
+      <button v-for="(item,index) in difficulty" :key="item.id" size="small" :class="{btnstyle:true,btnactive:index==difficultyIndex}" @click="difficultyChange(index,item.id)">{{item.name}}</button>
     </el-row>
     <el-row class="search">
       <el-select v-model="lessonValue" placeholder="名称">
@@ -28,11 +27,11 @@
       <div class="createLesson" @click = "createLesson">
         <p>创建课件</p>
       </div>
-      <div class="courseware" v-for=" item in 9" :key="item">
-        <img src="../../assets/images/u183.png" alt="缩略图">
-        <h3>课件标题</h3>
-        <p class="issuename"><span>发布者：{牛立新}</span><span>类型：{视频}</span></p>
-        <p class="issueinfo">{视频简介-本课程以新闻APP为例，手把手教你用平台开发APP，包括项目介绍、界面开发与数据交互等。}</p>
+      <div class="courseware" v-for=" (item,index) in resourceList" :key="item.id">
+        <img :src="'http://123.58.241.223:9999/'+item.thumbnail" alt="缩略图">
+        <h3>{{item.name}}</h3>
+        <p class="issuename"><span>发布者：{{item.createid}}</span><span>类型：{{item.typeid}}</span></p>
+        <p class="issueinfo">{{item.intro}}</p>
         <p class="issuebtn">
           <el-button type="primary" size="small">编辑</el-button>
           <el-button type="primary" size="small">删除</el-button>
@@ -55,36 +54,30 @@ export default {
   data() {
     return {
       activeName: "first",
-      classify: {
-        first: "",
-        second: "",
-        third: ""
-      },
-      firstOptios: [
-        {
-          value: "选项1",
-          label: "IT互联网"
-        },
-        {
-          value: "选项2",
-          label: "物联网"
-        }
-      ],
-      firstValue: "",
-      secondOptios: [],
-      secondValue: "",
-      thirdtOptios: [],
-      thirdValue: "",
-      btnstyle: false,
+      classifyid: '',
+      typeIndex: 0,
+      difficultyIndex:0,
+      btnstyle: '',
       type: [{name:"全部",id:''}],
       typeItem: "",
       difficulty: [{name:"全部",id:''}],
       difficultyItem: "",
-      lessonName: ["发布者", "简介"],
+      lessonName: ["名称","发布者", "简介"],
       lessonValue: "",
       searchContent: "",
       currentPage: 5,
+      resourceList:[],
+      paramsvalue: {}
     };
+  },
+  created() {
+    var that = this;
+    this.$http.get(
+      '/369education/yzh/education/inter/getResourceByCondition'
+    ).then((data)=>{
+      that.resourceList = data.data.resourceList;
+      console.log(that.resourceList);
+    })
   },
   mounted(){
    this.getTypes();
@@ -97,6 +90,19 @@ export default {
            this.type = this.type.concat(data.data.dictionaries);
         })
     },
+    classifyinfo(val){
+      this.classifyid = val;
+    },
+    typeChange(index,id){
+      // console.log(index,id);
+      this.typeIndex = index;
+      this.typeItem = id;
+    },
+    difficultyChange(index,id){
+      // console.log(index,id);
+      this.difficultyIndex = index;
+      this.difficultyItem = id;
+    },
     //获取难度数据
     getdifficulty(){
       this.$http.get('/369manage/yzh/manage/inter/getDictByTypeCode',{params:{typeCode:2}}).then((data)=>{
@@ -104,11 +110,35 @@ export default {
         })
     },
     search(){
-      console.log(11111);
+      var that = this;
+      if(this.classifyid!=''){
+        this.paramsvalue.classifyid =this.classifyid;
+      }
+      if(this.typeItem!=''){
+        this.paramsvalue.typeid =this.typeItem;
+      }
+      if(this.difficultyItem!=''){
+        this.paramsvalue.defficultyid =this.difficultyItem;
+      }
+      if(this.lessonValue== '名称'){
+        delete this.paramsvalue.intro;
+        delete this.paramsvalue.createUser;
+        this.paramsvalue.name = this.searchContent
+      } else if(this.lessonValue== '发布者'){
+        delete this.paramsvalue.name;
+        delete this.paramsvalue.intro;
+        this.paramsvalue.createUser = this.searchContent
+      } else if(this.lessonValue== '简介'){
+        delete this.paramsvalue.name;
+        delete this.paramsvalue.createUser;
+        this.paramsvalue.intro = this.searchContent
+      }
       this.$http.get(
-        '/369manage/yzh/manage/inter/getDictByTypeCode',{params:{typeCode: 1}})
+        '/369education/yzh/education/inter/getResourceByCondition',
+        {params:this.paramsvalue})
         .then(function(data){
         console.log(data);
+        that.resourceList = data.data.resourceList;
       })
     },
     createLesson(){
@@ -129,7 +159,19 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.btnbg {
+.btnstyle{
+    outline: none;
+    cursor: pointer;
+    padding: 7px 9px;
+    margin-right: 10px;
+    font-size: 12px;
+    line-height: 12px;
+    color: #1f2d3d; 
+    background-color: #fff;
+    border-radius: 4px;
+    border: 1px solid #c4c4c4;
+}
+.btnactive {
   color: rgb(66, 162, 235);
   background-color: #cff;
 }

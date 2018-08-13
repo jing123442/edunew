@@ -103,7 +103,7 @@ export default {
       this.typeItem = id;
     },
     difficultyChange(index,id){
-      // console.log(index,id);
+      console.log(index,id);
       this.difficultyIndex = index;
       this.difficultyItem = id;
     },
@@ -120,9 +120,13 @@ export default {
       }
       if(this.typeItem!=''){
         this.paramsvalue.typeid =this.typeItem;
+      } else{
+        delete this.paramsvalue.typeid;
       }
       if(this.difficultyItem!=''){
         this.paramsvalue.defficultyid =this.difficultyItem;
+      } else{
+        delete this.paramsvalue.defficultyid;
       }
       if(this.lessonValue== '名称'){
         delete this.paramsvalue.intro;

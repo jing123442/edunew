@@ -1,7 +1,7 @@
 <template>
   <div id="criculumdesign">
       <el-tabs v-model="activeName">
-      <el-tab-pane label="测评管理" name="first"></el-tab-pane>
+      <el-tab-pane label="课程设计" name="first"></el-tab-pane>
     </el-tabs>
     <el-row class="classify">
       <span class="classifylabel">分类：</span>
@@ -90,6 +90,7 @@ export default {
           label: "物联网"
         }
       ],
+      searchContent: "",
       firstValue: "",
       secondOptios: [],
       secondValue: "",

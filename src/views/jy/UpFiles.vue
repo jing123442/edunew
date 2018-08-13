@@ -409,8 +409,6 @@ export default {
       width: 600px;
     }
   }
-  .difficulty {
-  }
   .intro {
     .introcentent {
       width: 600px;

@@ -27,7 +27,7 @@
       <div class="createLesson" @click = "createLesson">
         <p>创建课件</p>
       </div>
-      <div class="courseware" v-for=" (item,index) in resourceList" :key="item.id">
+      <div class="courseware" v-for=" (item) in resourceList" :key="item.id">
         <img :src="'http://123.58.241.223:9999/'+item.thumbnail" alt="缩略图">
         <h3>{{item.name}}</h3>
         <p class="issuename"><span>发布者：{{item.createid}}</span><span>类型：{{item.typeid}}</span></p>

@@ -28,6 +28,9 @@ const UpCase = ()=> import( '@/views/jy/UpCase.vue')
 const TeachAudit = ()=> import( '@/views/jy/TeachAudit.vue')
 const CriculumDesign = ()=> import( '@/views/jy/CriculumDesign.vue')
 const CreatePlan = ()=> import( '@/views/jy/CreatePlan.vue')
+const BasicInfo = ()=> import( '@/views/jy/BasicInfo.vue')
+const StructuralDesign = ()=> import( '@/views/jy/StructuralDesign.vue')
+const ContentDesign = ()=> import( '@/views/jy/ContentDesign.vue')
 const TestManagement = ()=> import( '@/views/jy/TestManagement.vue')
 const StuLogin = ()=> import( '@/views/stu/StuLogin.vue')
 const MyCourse = ()=> import( '@/views/stu/MyCourse.vue')
@@ -108,7 +111,24 @@ const router = new Router({
         },
         { path: 'teachaudit', component: TeachAudit },
         { path: 'criculumdesign', component: CriculumDesign },
-        { path: 'createplan', component: CreatePlan },
+        { 
+          path: 'createplan', 
+          component: CreatePlan,
+          children: [
+            {
+              path: 'basicinfo', 
+              component: BasicInfo 
+            },
+            {
+              path: 'structuralsesign', 
+              component: StructuralDesign 
+            },
+            {
+              path: 'contentdesign', 
+              component: ContentDesign 
+            }
+          ]
+        },
         { path: 'testmanagement', component: TestManagement }
       ]
     },

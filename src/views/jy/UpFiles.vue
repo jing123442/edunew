@@ -259,7 +259,7 @@ export default {
     },
     imgsuccess(data){
       this.thumbnailId=data.filePath;
-      // console.log(data)
+      console.log(data) 
     },
     filesuccess(data){
       this.resourceFileId=data.filePath;
@@ -320,7 +320,7 @@ export default {
           createUser: sessionStorage.getItem('keyId')
           })
       ).then((data)=>{
-         this.$alert('班级添加成功', '提示信息', {
+         this.$alert('上传资源成功', '提示信息', {
             confirmButtonText: '确定',
           }).then(()=>{
             this.$router.push({path:'/sourceLab/resource'});

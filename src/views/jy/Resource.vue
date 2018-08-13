@@ -34,7 +34,7 @@
         <p class="issueinfo">{{item.intro}}</p>
         <p class="issuebtn">
           <el-button type="primary" size="small">编辑</el-button>
-          <el-button type="primary" size="small">删除</el-button>
+          <el-button type="primary" size="small" @click="del(item.id)">删除</el-button>
         </p>
       </div>
     </el-row>
@@ -71,19 +71,23 @@ export default {
     };
   },
   created() {
-    var that = this;
-    this.$http.get(
-      '/369education/yzh/education/inter/getResourceByCondition'
-    ).then((data)=>{
-      that.resourceList = data.data.resourceList;
-      console.log(that.resourceList);
-    })
+   this.getCourseware();
   },
   mounted(){
    this.getTypes();
    this.getdifficulty();
   },
   methods: {
+    //获取课件数据
+    getCourseware(){
+      var that = this;
+      this.$http.get(
+        '/369education/yzh/education/inter/getResourceByCondition'
+      ).then((data)=>{
+        that.resourceList = data.data.resourceList;
+        console.log(that.resourceList);
+      })
+    },
     //获取类型数据
     getTypes(){
       this.$http.get('/369manage/yzh/manage/inter/getDictByTypeCode',{params:{typeCode:1}}).then((data)=>{
@@ -139,6 +143,21 @@ export default {
         .then(function(data){
         console.log(data);
         that.resourceList = data.data.resourceList;
+      })
+    },
+    del(id){
+      var that = this;
+      this.$http.post(
+        '/369education/yzh/education/inter/deleteResource',
+        this.qs.stringify({id: id})
+        )
+        .then(function(data){
+          that.getCourseware();
+          that.$alert('删除成功', '提示信息', {
+            confirmButtonText: '确定',
+          }).then(()=>{
+            that.$router.push({path:'/sourceLab/resource'});
+          });
       })
     },
     createLesson(){
@@ -241,6 +260,7 @@ export default {
     img{
       width: 210px;
       height: 120px;
+      display: block;
     }
     p{
       margin: 0 4px;

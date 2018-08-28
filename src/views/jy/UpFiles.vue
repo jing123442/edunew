@@ -205,6 +205,7 @@
 </template>
 <script>
 import classify from "../../components/Classify";
+
 export default {
   data() {
     return {

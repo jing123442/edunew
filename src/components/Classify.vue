@@ -78,7 +78,7 @@ export default {
         })
         .then(data => {
           that.firstList = data.data.classifies;
-          console.log(data);
+          // console.log(data);
         });
     },
     firstChange(value) {

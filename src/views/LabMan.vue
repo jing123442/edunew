@@ -1,7 +1,7 @@
 <template>
     <div class="labman" id='jw'>
         <HeadView></HeadView>
-        <div>
+        <div class="main">
     
             <ul class='labman-menu' id="lab-menu">
     
@@ -54,9 +54,10 @@ export default {
 </script>
 <style lang='less'>
 .labman {
+    .main{
+        margin-top: -10px;
+    }
     &-menu {
-        margin-top: 50px;
-
         background: #383e4c;
         width: 10%; // height: 800px;
         color: #fff;
@@ -89,8 +90,11 @@ export default {
         }
     }
     &-box {
-        float: left;
+        // float: left;
+        margin-left: 10%;
+        padding-top: 15px;
         width: 90%;
+        margin-top: 60px;
     }
 }
 </style>

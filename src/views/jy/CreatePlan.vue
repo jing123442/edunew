@@ -29,7 +29,6 @@
         <router-view></router-view>
       </div>
     </div>
-    <el-button type="primary" class="save" v-if="liItem!=2">保存</el-button>
   </div>
 </template>
 <script>
@@ -38,7 +37,8 @@ export default {
     return {
       activeName: "first",
       imgsrc: require("../../assets/images/u633.png"),
-      liItem: 1
+      liItem: 1,
+      keyId: sessionStorage.getItem('keyId')
     };
   },
   created() {
@@ -138,11 +138,6 @@ export default {
       height: 525px;
       border: 1px solid rgb(230, 240, 249);
     }
-  }
-  .save{
-    width: 140px;
-    height: 45px;
-    margin: 20px 0 0 545px;
   }
 }
 

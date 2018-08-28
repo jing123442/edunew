@@ -16,6 +16,7 @@
         action="/369education/yzh/education/inter/uploadFile"
         list-type="picture-card"
         :on-preview="handlePreview"
+        :on-remove="handleRemove"
         :on-success="imgsuccess">
         <el-button size="small" type="primary">选择图片</el-button>
       </el-upload>
@@ -27,6 +28,7 @@
       <span class="namelabel">课程简介：</span>
       <textarea v-model="intro" class="introcentent" placeholder="300个汉字以内"></textarea>
     </el-row>
+    <el-button type="primary" class="save" @click="create">保存</el-button>
   </div>
 </template>
 <script>
@@ -53,13 +55,37 @@ export default {
       this.classifyid = val;
     },
     handlePreview(file) {
-      // console.log(file);
+      console.log(file);
       this.dialogImageUrl = file.url;
       this.dialogVisible = true;
     },
+    handleRemove(file){
+    },
     imgsuccess(data){
       this.thumbnailId=data.filePath;
-      console.log(data) 
+    },
+    create(){
+      this.$http.post('/369education/yzh/education/inter/addTeachPlan',
+      this.qs.stringify({
+        name: this.name,
+        classifyid: this.classifyid,
+        cover: this.thumbnailId,
+        intro: this.intro,
+        createid: sessionStorage.getItem('keyId')
+      })).then(data =>{
+        console.log(data);
+        this.$alert('创建教案成功', '提示信息', {
+            confirmButtonText: '确定',
+          }).then(()=>{
+            sessionStorage.setItem('planId',data.data.id);
+            this.$router.push(
+              {
+                path:'/sourceLab/createplan/structuralsesign',
+                query: {id: data.data.id}
+              },
+            );
+          });
+      })
     }
   },
   components: {
@@ -67,6 +93,7 @@ export default {
   }
 };
 </script>
+
 <style lang="less" scoped>
 #basicinfo {
   margin-top: 30px;
@@ -93,6 +120,11 @@ export default {
     width: 600px;
     height: 170px;
     border: 1px solid #bfcbd9;
+  }
+  .save{
+    width: 140px;
+    height: 45px;
+    margin: 60px 0 30px 325px;
   }
 }
 </style>

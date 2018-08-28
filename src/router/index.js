@@ -93,7 +93,7 @@ const router = new Router({
         requireAuth: true
       },
       children: [
-        { path: 'source', component: Source },
+        { path: 'source', component: Source ,alias: ''},
         { path: 'ability', component: Ability },
         { path: 'jobeval', component: JobEval },
         { path: 'addtest', component: AddTest },

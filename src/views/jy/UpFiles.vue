@@ -171,6 +171,7 @@
           <el-upload
             class="up_img"
             action="/369education/yzh/education/inter/uploadFile"
+            name="test"
             list-type="picture-card"
             :on-preview="handlePreview"
             :on-success="imgsuccess">
@@ -257,6 +258,9 @@ export default {
       this.dialogImageUrl = file.url;
       this.dialogVisible = true;
     },
+    handleRemove(file){
+      console.log(file);
+    },
     imgsuccess(data){
       this.thumbnailId=data.filePath;
       console.log(data) 
@@ -265,8 +269,6 @@ export default {
       this.resourceFileId=data.filePath;
       console.log(this.resourceFileId);
     },
-    handleRemove() {},
-    beforeRemove() {},
     handleExceed(data) {},
     typeChange(value) {
       var name = "";

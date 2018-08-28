@@ -292,9 +292,4 @@ export default {
   width: 500px;
   margin: 0 auto;
 }
-
-
-#uphandouts {
-    margin-top: 40px;
-}
 </style>

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import qs from 'qs'
+
 Vue.use(Vuex)
 const state = {
     title: null,

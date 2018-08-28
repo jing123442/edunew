@@ -16,7 +16,7 @@
             </router-link>
           </li>
             <li class="lab-con-box basebg fl">  
-           <router-link to="/login/竞争力培养">
+           <router-link Spellcheckerter-link to="/login/竞争力培养">
               <img src="../assets/images/train.jpg" alt="竞争力培养">
               <h3 class="lab-con-box-title">竞争力培养</h3>
            </router-link>
@@ -49,6 +49,13 @@ export default {
     }
   },
   created(){
+    /**
+     * !1111
+     * ?1111
+     * *1111
+     * 1111
+     * TODO: SDFDSFSDFSDFSDF
+     */
       this.$store.dispatch("SET_TITLE",'教研平台')
   },
   components:{

@@ -5,30 +5,7 @@
     </el-tabs>
     <el-row class="classify">
       <span class="classifylabel">分类：</span>
-      <el-select v-model="firstValue" placeholder="请选择一级分类">
-        <el-option
-          v-for="item in firstOptios"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value">
-        </el-option>
-      </el-select>
-      <el-select v-model="secondValue" placeholder="请选择二级分类">
-        <el-option
-          v-for="item in firstOptios"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value">
-        </el-option>
-      </el-select>
-      <el-select v-model="thirdValue" placeholder="请选择三级分类">
-        <el-option
-          v-for="item in firstOptios"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value">
-        </el-option>
-      </el-select>
+      <classify @changeCode="classifyinfo" />
     </el-row>
     <el-row class="search">
       <span>发布者：</span>
@@ -71,48 +48,36 @@
   </div>
 </template>
 <script>
+import classify from "../../components/Classify";
+
 export default {
   data() {
     return {
       activeName: "first",
-      classify: {
-        first: "",
-        second: "",
-        third: ""
-      },
-      firstOptios: [
-        {
-          value: "选项1",
-          label: "IT互联网"
-        },
-        {
-          value: "选项2",
-          label: "物联网"
-        }
-      ],
-      searchContent: "",
-      firstValue: "",
-      secondOptios: [],
-      secondValue: "",
-      thirdtOptios: [],
-      thirdValue: "",
+      classifyid: "",
       btnstyle: false,
       publishers: ["胡文飞", "牛立新"],
       publisherValue: "",
-      status: ["使用中", "审核通过","未审核"],
+      status: ["使用中", "审核通过", "未审核"],
       statusValue: "",
-      currentPage:1,
+      currentPage: 1
     };
   },
   methods: {
-    handleCurrentChange(val) {
-        console.log(`当前页: ${val}`);
+    classifyinfo(val) {
+      this.classifyid = val;
     },
-    designLink(){
+    handleCurrentChange(val) {
+      console.log(`当前页: ${val}`);
+    },
+    designLink() {
       this.$router.push({
-        path: '/sourceLab/createplan'
-      })
+        path: "/sourceLab/createplan"
+      });
     }
+  },
+  components: {
+    classify
   }
 };
 </script>
@@ -132,12 +97,14 @@ export default {
   width: 56px;
   display: inline-block;
   font-weight: bold;
+  vertical-align: top;
+  margin-top: 8px;  
 }
 .el-select {
   margin: 0 3px;
 }
 .search {
-  span{
+  span {
     font-weight: bold;
   }
   div {
@@ -158,56 +125,56 @@ export default {
 .cuttingLine {
   border-top: 1px solid #d1dbe5;
 }
-.teachplan{
+.teachplan {
   height: 640px;
   display: flex;
   flex-wrap: wrap;
-  .createEvaluations{
-    border: 1px solid rgb(204,204,204);
+  .createEvaluations {
+    border: 1px solid rgb(204, 204, 204);
     background: url(../../assets/images/addgray.png) no-repeat 75px 75px;
-    p{
+    p {
       color: #ccc;
       font-size: 18px;
       text-align: center;
       margin-top: 230px;
     }
-    &:hover{
+    &:hover {
       background-color: #f2f2f2;
     }
   }
-   div{
+  div {
     width: 210px;
     height: 300px;
     margin: 15px 40px 0 0;
     cursor: pointer;
   }
-  .courseware{
-    img{
+  .courseware {
+    img {
       width: 210px;
       height: 120px;
     }
-    p{
+    p {
       margin: 0 4px;
     }
-    h3{
+    h3 {
       margin: 4px;
     }
-    .issuename{
+    .issuename {
       margin: 0 0 10px 4px;
     }
-    .issueinfo{
+    .issueinfo {
       color: #999;
       height: 57px;
       overflow: hidden;
     }
-    .issuebtn{
+    .issuebtn {
       margin-top: 15px;
       display: flex;
       justify-content: space-around;
     }
   }
 }
-.block{
+.block {
   width: 500px;
   margin: 0 auto;
 }

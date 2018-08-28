@@ -1,33 +1,15 @@
 <template>
   <div id="contentdesign">
-    <h2>内容设计模块</h2>
-    <el-row class="name">
-      <span class="namelabel"><span class="red">*</span>名称：</span>
-      <el-input v-model="name" placeholder="30个汉字以内"></el-input>
-    </el-row>
     <el-row class="classifybox">
       <span class="classifylabel"><span class="red">*</span>分类：</span>
       <classify @changeCode="classifyinfo" />
     </el-row>
     
-    <el-row class="thumbnail">
-      <span class="namelabel"><span class="red">*</span>课程封面：</span>
-      <el-upload
-        class="up_img"
-        action="/369education/yzh/education/inter/uploadFile"
-        list-type="picture-card"
-        :on-preview="handlePreview"
-        :on-success="imgsuccess">
-        <el-button size="small" type="primary">选择图片</el-button>
-      </el-upload>
-      <el-dialog :visible.sync="dialogVisible">
-        <img width="100%" :src="dialogImageUrl" alt="">
-      </el-dialog>
-    </el-row>
     <el-row class="intro">
-      <span class="namelabel">课程简介：</span>
+      <span class="namelabel">学习目标：</span>
       <textarea v-model="intro" class="introcentent" placeholder="300个汉字以内"></textarea>
     </el-row>
+    <el-button type="primary" class="save" @click="create">保存</el-button>
   </div>
 </template>
 <script>
@@ -61,6 +43,22 @@ export default {
     imgsuccess(data){
       this.thumbnailId=data.filePath;
       console.log(data) 
+    },
+     create(){
+      // this.$http.post('/369education/yzh/education/inter/addTeachPlan',
+      // this.qs.stringify({
+      //   name: this.name,
+      //   classifyid: this.classifyid,
+      //   cover: this.thumbnailId,
+      //   intro: this.intro,
+      //   createid: sessionStorage.getItem('keyId')
+      // })).then(data =>{
+      //   this.$alert('创建教案成功', '提示信息', {
+      //       confirmButtonText: '确定',
+      //     }).then(()=>{
+      //       this.$router.push({path:'/sourceLab/criculumdesign'});
+      //     });
+      // })
     }
   },
   components: {
@@ -74,9 +72,6 @@ export default {
   .red{
     color: red;
   }
-  .el-input{
-    width: 599px;
-  }
   .el-row>span{
     padding-top:5px;
     display: inline-block;
@@ -84,16 +79,19 @@ export default {
     width: 100px;
     vertical-align: top;
   }
-  .up_img{
-    display: inline-block;
-  }
-  .classifybox, .thumbnail, .intro{
+  .classifybox, .intro{
     margin-top: 20px;
   }
   .introcentent{
     width: 600px;
     height: 170px;
     border: 1px solid #bfcbd9;
+  }
+  
+  .save{
+    width: 140px;
+    height: 45px;
+    margin: 60px 0 30px 325px;
   }
 }
 </style>

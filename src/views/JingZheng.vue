@@ -52,7 +52,7 @@ export default {
     name: 'jingzheng',
     data() {
         return {
-            item1: {'/labman/course':'实验室管理平台', '/sourceLab/source':'实验设计平台', '/theory/check':'理论检测平台','/basis/make': '基础实验平台'},
+            item1: {'/labman/class':'实验室管理平台', '/sourceLab/source':'实验设计平台', '/theory/check':'理论检测平台','/basis/make': '基础实验平台'},
             item2: ['技能实验平台'],
             item3: ['虚拟工作站'],
             item4: ['能力评估平台']

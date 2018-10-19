@@ -6,7 +6,7 @@ const Login = ()=> import( '@/views/Login')
 const JingZheng = ()=> import( '@/views/JingZheng')
 const LabMan = ()=> import( '@/views/LabMan')
 const Course = ()=> import( '@/views/Course')
-const Classs = ()=> import( '@/views/Classs')
+const Class = ()=> import( '@/views/Class')
 const XueJi = ()=> import( '@/views/XueJi')
 const StuBaseNews = ()=> import( '@/views/stuBaseNews')
 const Cultivate = ()=> import( '@/views/Cultivate')
@@ -79,7 +79,7 @@ const router = new Router({
       children: [
         { path: 'course', component: Course },
         { path: 'newCourse', name: 'newCourse', component: NewCourse },
-        { path: 'classs', component: Classs },
+        { path: 'class', component: Class },
         { path: 'newclass', name: 'newClass', component: NewClass },
         { path: 'xueji', component: XueJi },
         { path: 'newXueJi/:stuId', name: 'newXuJi', component: NewXueJi }

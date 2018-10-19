@@ -5,9 +5,9 @@
     
             <ul class='labman-menu' id="lab-menu">
     
-                <router-link to='/labman/course' tag='li' :class="{active:courseActive}" class='labman-menu-item'>
+                <!-- 屏蔽：：：已过时 <router-link to='/labman/course' tag='li' :class="{active:courseActive}" class='labman-menu-item'>
                     <a href="javascript:;">课程管理</a>
-                </router-link>
+                </router-link> -->
     
                 <router-link to='/labman/classs' tag='li' :class="{active:classActive}" class='labman-menu-item'>
                     <a href="javascript:;">班级管理</a>

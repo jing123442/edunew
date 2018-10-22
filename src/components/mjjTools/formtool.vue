@@ -1,6 +1,6 @@
 <template>
   <div class='mjjformtool'>
-    <el-form ref="form" :model="form" :label-width="item.style.labelWidth||'100px'" :rules='item.rules' :label-position='item.style.labelPosition' :inline='false'>
+    <el-form ref="form" :model="form" :label-width="item.style.labelWidth||'100px'" :rules='item.rules' :label-position='item.style.labelPosition' :inline='item.style.inLine||false'>
       <el-form-item :label="item.name" v-if='item.type==1'>
         <el-input v-model="form.value" @submit.native.prevent @input='blured'></el-input>
       </el-form-item>
@@ -31,8 +31,8 @@
       <!-- datapick -->
       
       <el-form-item v-if='item.type==6'>
-    
-        <el-button type="primary">{{item.name}}</el-button>
+        <el-button :type="item.style.buttontype"   @click='chufa'>{{item.name}}</el-button>
+        <el-button v-if='item.style.buttonTwo ||false' :style='{marginLeft:item.style.buttonTwoMargenLeft || "30px"}' @click='chufa'>取消</el-button>
       </el-form-item>
       <!-- button -->
     </el-form>
@@ -42,6 +42,7 @@
 <script>
 export default {
   name: "formtool",
+
   props: ["item"],
  
   data() {
@@ -56,6 +57,10 @@ export default {
      blured:function(){
        this.$emit('keyValue',this.item.englishname,this.form)
       //  console.log(this.form.checkboxvalue)
+     },
+     chufa:function(){
+       this.$emit('bubbling');
+       
      }
     
     

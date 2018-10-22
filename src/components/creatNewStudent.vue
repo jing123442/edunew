@@ -4,16 +4,25 @@
     <div class='floor floor1'>
       <div class='floortitle'>基本信息</div>
       <div class='container'>
+        <!-- 控制第一层输入框/选择框等宽度的容器 -->
         <div class='widthCon'>
+          <!-- 循环自定义form，根据传入数据生成对应的input/select/checkbox/radio/datepicher/button -->
           <formtool v-for='(content,key) in floorOneRender' :key='key' :item='content' @keyValue='getKeyValue'></formtool>
         </div>
       </div>
     </div>
-    <div class='floor floor2'>
-      <div class='floortitle' >班级信息</div>
+    <div class='floor floor2 clear'>
+      <div class='floortitle'>班级信息</div>
       <div class='container'>
-        <span class='floor2CeckText'>所属班级：</span>
-        <formtool  :item='floorTworender' ></formtool>
+        <span class='floor2Text'>所属班级：</span>
+        <formtool :item='floorTworenderbutton' @click.native='floorTwoClickShow'></formtool>
+        <div class='alertSelectClass' v-show='floorTwoVShow'>
+          <alertform :item='floorTwoalertStyleaRender' @floorTwoClickHide='floorTwoClickHide'></alertform>
+        </div>
+        <div class='floor2DataShow'>
+          <!-- <div>{{this.newStuInformation.class}}</div> -->
+          <!-- <div>入班时间：{{}}</div> -->
+        </div>
       </div>
     </div>
     <div class='floor floor3'>
@@ -28,13 +37,20 @@
 </template>
 
 <script>
-  import formtool from "./mjjTools/formtool";
+  import formtool from "./mjjTools/formtool"
+  import alertform from "./mjjTools/alertform"
   export default {
     name: "creatNewStudent",
     data() {
       return {
+        // 获取到的value值均存在下面的对象中
         newStuInformation: {},
-        ///////////////////////////////////////////以下为第一层数据/////////////////////////////////////////////////////////////////////////////////
+        // 第一层数据*****************************
+        // 第二层数据*****************************
+        //alert选择框 显示控制
+        floorTwoVShow: false,
+        //第二层所在班级展示
+        ///////////////////////////////////////////以下为第一层formtool数据渲染/////////////////////////////////////////////////////////////////////////////////
         floorOneRender: [
           //formtool传入数据格式：{type:'(01)',name:'输入提示',arr:[select/checkbox等选项],style:{样式},rule:{require:'true',message:'',}},
           {
@@ -128,28 +144,77 @@
             },
           }
         ],
-        ////////////////////////////////////////////////以下为第二层数据///////////////////////////////////////////////////////
-        floorTworender: {
+        ////////////////////////////////////////////////以下为第二层formtool渲染数据///////////////////////////////////////////////////////
+        floorTworenderbutton: {
           type: "06",
           name: "添加班级",
           style: {
+            labelWidth: "110px",
+            labelPosition: "left",
+            width: "",
+            buttontype: "primary",
+          },
+        },
+        floorTwoalertStyleaRender: {
+          // alertform需传入样式：头部padding（默认30px），内容宽度，弹出框总宽度
+          style: {
+            // selectWidth:'',
+            // width:'',
+            // paddingTop:''
+          },
+          alertRender: [{
+            type: "02",
+            englishname: 'localschool',
+            name: "选择学校：",
+            arr: ["青岛", "西安"],
+            style: {
+              labelWidth: "110px",
+              labelPosition: "right",
+              width: "7",
+              inLine: ''
+            },
+          }, {
+            type: "02",
+            englishname: 'localschool',
+            name: "选择学校：",
+            arr: ["青岛", "西安"],
+            style: {
+              labelWidth: "110px",
+              labelPosition: "right",
+              width: "7",
+              inLine: '',
+            }
+          }, {
+            type: "02",
+            englishname: 'localschool',
+            name: "选择班级：",
+            arr: ["青岛", "西安"],
+            style: {
+              labelWidth: "110px",
+              labelPosition: "right",
+              width: "7",
+              inLine: ''
+            }
+          }, {
+            type: "06",
+            name: "确定",
+            style: {
               labelWidth: "110px",
               labelPosition: "left",
-              width: ""
+              width: "",
+              buttontype: "primary",
+              buttonTwo: true,
+              buttonTwoMargenLeft: '30px',
             },
-          // rules: {
-          //   rule: [{
-          //     require: "true",
-          //     message: "请输入",
-          //     trigger: "blur"
-          //   }]
-          // }
-        },
-        
+          }, ],
+        }
       };
     },
     components: {
-      formtool
+      formtool,
+      alertform,
+    },
+    computed: {
     },
     methods: {
       // 一层所有信息获取，对象形式存入newStuInformation中
@@ -160,10 +225,14 @@
           this.newStuInformation[key] = value.value;
         }
       },
-      hideOrShow:function(){
-        
-      }
-
+      floorTwoClickShow: function() {
+        this.floorTwoVShow = true;
+        console.log('156456')
+      },
+      floorTwoClickHide: function() {
+        this.floorTwoVShow = false;
+        console.log('jignjing')
+      },
     }
   };
 </script>
@@ -199,20 +268,36 @@
     padding-top: 30px;
     background-color: rgba(255, 255, 255, 1);
   }
+  .clear:after {
+    content: ".";
+    clear: both;
+    display: block;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+  }
   /* ////////////////////////以上为根元素及公共样式////////////////////////////////////////// */
-  .widthCon{
-    width:350px;
+  .widthCon {
+    width: 350px;
   }
   /* /////////////////////////以上为第一层样式///////////////////////////// */
-.floor2{
-  position: relative;;
-}
-.floor2CeckText{
-  position:absolute;
-  left:30px;
-  top:75px;
-  display:block;
-
-  
-}
+  .floor2 {
+    position: relative;
+  }
+  .floor2Text {
+    position: absolute;
+    left: 30px;
+    top: 75px;
+    display: block;
+  }
+  .alertSelectClass {
+    position: absolute;
+    left: 232px;
+    top: 72px;
+  }
+  .floor2DataShow {
+    position: absolute;
+    left: 125px;
+    top: 150px;
+  }
 </style>

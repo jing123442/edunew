@@ -1,23 +1,35 @@
 <template>
-    <div class='root1 root2 '>
-<formtool v-for='(content,index) in ' :key=index></formtool>
+    <div class= 'container root1 ' :style='{paddingTop:item.style.paddingTop ||"30px", width:item.style.width ||"330px"}'>
+        <!-- 内容宽度容器 -->
+        <div class='Widthcon' :style='{width:item.style.selectWidth || "292px"}'>
+            <formtool v-for='(content,index) in item.alertRender ' :key='index' :item='content' @bubbling='bubbling'></formtool>
+            <button>nihao</button>
+        </div>
     </div>
 </template>
 
 <script>
-    import formtool from './formtool.vue'
+    import formtool from './formtool'
     export default {
-        porps:[''],
-        components:{
+        name: 'alertform',
+        props:['item'],
+        components: {
             formtool,
+        },
+        data() {
+            return {
+               
+            }
+        },
+        methods:{
+            bubbling(){
+        this.$emit('floorTwoClickHide')
+       
+            }
         }
-        
     }
 </script>
 
 <style scoped>
-.root1{
-    width:330px;
-}
 
 </style>

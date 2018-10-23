@@ -12,7 +12,7 @@
     },
     mounted() {
       console.log('ppppp')
-      this.$axios.get('http://mytestdata/getAllClass').then(function(res) {
+      this.$axios.get('/getallclass').then(function(res) {
         console.log(res)
       })
      

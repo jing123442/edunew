@@ -6,6 +6,11 @@ import router from './router'
 import ElementUI from 'element-ui';
 import axios from 'axios'
 import 'element-ui/lib/theme-chalk/index.css';
+/* 过滤请求 */
+axios.interceptors.request.use((config) => {
+  config.url='http://www.369college.com/369research'+ config.url;
+  return config
+})
 Vue.prototype.$axios = axios;
 
 if (process.env.NODE_ENV == 'development') { //拦截请求模拟数据
@@ -16,7 +21,7 @@ if (process.env.NODE_ENV == 'development') { //拦截请求模拟数据
     .keys(dataroutes)
     .map((item) => item.toLowerCase()); //获取全部路由
   let routeIndex = -1;
-  Mock.mock(/http:\/\/mytestdata\/.*/, function (options) {
+  Mock.mock(/http:\/\/www.369college.com\/369research\/.*/, function (options) {
     var url = options
       .url
       .toLowerCase();

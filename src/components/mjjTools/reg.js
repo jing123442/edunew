@@ -34,6 +34,7 @@ export function isNormalText(rule,value,callback){
 
 //select等校验
 export function isSelected(rule,value,callback){
+  console.log('value>>>>',this.form.value);
     if(this.form.value){
         callback();
     }else{

@@ -38,15 +38,9 @@
 
 <script>
   import {
-    isMobil
-  } from "./mjjTools/reg.js";
-  import {
-    isSelected
-  } from './mjjTools/reg.js';
-  import {
-    isID
-  } from "./mjjTools/reg.js";
-   import {
+    isMobil,
+    isSelected,
+    isID,
     isNormalText
   } from "./mjjTools/reg.js";
   import formtool from "./mjjTools/formtool";
@@ -167,15 +161,13 @@
               width: "7",
               inLine: ""
             },
-             rules: {
-                rule: [
-                  {
-                    required: true,
-                    validator: isSelected,
-                    trigger: "blur"
-                  }
-                ]
-              }
+            rules: {
+              rule: [{
+                required: true,
+                validator: isSelected,
+                trigger: "blur"
+              }]
+            }
           },
           {
             type: "02",
@@ -189,10 +181,9 @@
               inLine: ""
             },
             rules: {
-              rule: [{
-                required: true,
+              rule: [ {  required: true,
                 validator: isSelected,
-                trigger: "blur"
+                trigger: "change"
               }]
             }
           },

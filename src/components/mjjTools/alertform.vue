@@ -2,7 +2,7 @@
     <div class='container root1 ' :style='{paddingTop:item.style.paddingTop ||"30px", width:item.style.width ||"330px"}'>
         <!-- 内容宽度容器 -->
         <div class='Widthcon' :style='{width:item.style.selectWidth || "292px"}'>
-            <formtool v-for='(content,index) in item.alertRender ' :key='index' :item='content' @cancel.native='canceled'></formtool>
+            <formtool v-for='(content,index) in item.alertRender ' :key='index' :item='content' @cancel='canceled' @submited='submit'></formtool>
         </div>
     </div>
 </template>
@@ -20,12 +20,14 @@
             }
         },
         methods: {
+    
             canceled() {
                 this.$emit('canceled')
             },
-            // submit() {
-            // this.$emit('floorTwoClickHide')
-        // }
+            submit() {
+            this.$emit('floorTwoClickHide')
+            this.$emit('getKeyValue')
+        }
         },
         
     }

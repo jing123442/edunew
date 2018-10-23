@@ -17,8 +17,14 @@
         <span class='floor2Text'>所属班级：</span>
         <formtool :item='floorTworenderbutton' @click.native='floorTwoClickShow'></formtool>
         <div class='alertSelectClass' v-show='floorTwoVShow'>
-          <alertform :item='floorTwoalertStyleaRender' @canceled='floorTwoClickCancel'></alertform>
+          <alertform :item='floorTwoalertStyleaRender' @canceled='floorTwoClickCancel' @submit='getKeyValue'></alertform>
         </div>
+        <table class='floor2DataShow'>
+          <tr>
+            <td></td>
+            <td></td>
+          </tr>
+        </table>
         <div class='floor2DataShow'>
           <!-- <div>{{this.newStuInformation.class}}</div> -->
           <!-- <div>入班时间：{{}}</div> -->
@@ -46,7 +52,7 @@
   import {
     isID
   } from "./mjjTools/reg.js";
-   import {
+  import {
     isNormalText
   } from "./mjjTools/reg.js";
   import formtool from "./mjjTools/formtool";
@@ -134,7 +140,7 @@
             rules: {
               rule: [{
                 required: true,
-                validator: isMobil,
+                validator: isNormalText,
                 trigger: "blur"
               }]
             }
@@ -167,19 +173,17 @@
               width: "7",
               inLine: ""
             },
-             rules: {
-                rule: [
-                  {
-                    required: true,
-                    validator: isSelected,
-                    trigger: "blur"
-                  }
-                ]
-              }
+            rules: {
+              rule: [{
+                required: true,
+                validator: isSelected,
+                trigger: "blur"
+              }]
+            }
           },
           {
             type: "02",
-            englishname: "stuSex",
+            englishname: "stuQualification",
             name: "学历：",
             arr: ["硕士及以上", "本科", "专科", "高职"],
             style: {
@@ -191,8 +195,8 @@
             rules: {
               rule: [{
                 required: true,
-                validator: isSelected,
-                trigger: "blur"
+                message: '请选择学历',
+                trigger: "change"
               }]
             }
           },
@@ -225,7 +229,7 @@
             rules: {
               rule: [{
                 required: true,
-                validator: isMobil,
+                validator: isNormalText,
                 trigger: "blur"
               }]
             }
@@ -234,6 +238,23 @@
             type: "01",
             name: "手机:",
             englishname: "stuPhone",
+            style: {
+              labelWidth: "100px",
+              labelPosition: "right",
+              width: "7"
+            },
+            rules: {
+              rule: [{
+                required: true,
+                validator: isMobil,
+                trigger: "blur"
+              }]
+            }
+          },
+          {
+            type: "01",
+            name: "邮箱:",
+            englishname: "stuMail",
             style: {
               labelWidth: "100px",
               labelPosition: "right",
@@ -281,7 +302,7 @@
             {
               type: "02",
               englishname: "localschool",
-              name: "选择学校：",
+              name: "选择专业：",
               arr: ["青岛", "西安"],
               style: {
                 labelWidth: "110px",
@@ -331,6 +352,8 @@
         } else {
           this.newStuInformation[key] = value.value;
         }
+        
+       console.log( this.newStuInformation)
       },
       //点击添加班级后 alertform显示
       floorTwoClickShow: function() {

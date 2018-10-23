@@ -27,43 +27,39 @@
         </div>
       </div>
       <!-- <table class='floor2DataShow'>
-              <tr class=''>
-                <td></td>
-                <td class='autoGetTime'>入班时间：{{new Date().getFullYear()+'-'+(new Date().getMonth()+1)+'-'+new Date().getDate()+' '+new Date().getHours()+':'+new Date().getMinutes()+':'+new Date().getSeconds()}}</td>
-              </tr>
-            </table> -->
+                  <tr class=''>
+                    <td></td>
+                    <td class='autoGetTime'>入班时间：{{new Date().getFullYear()+'-'+(new Date().getMonth()+1)+'-'+new Date().getDate()+' '+new Date().getHours()+':'+new Date().getMinutes()+':'+new Date().getSeconds()}}</td>
+                  </tr>
+                </table> -->
     </div>
     <div class='floor floor3'>
       <div class='floortitle'>学籍信息</div>
       <div class='container floor3Container'>
-     <div class='floor3CheckCard'>
-       <div class='floor3Button'>班级渲染</div>
-       </div> 
-     <div class='StuManagementShow'>
-       <ul>
-         <li>学籍状态：</li>
-         <li>毕业资格：</li>
-         <li>纪律分：  </li>
-         <li>未休学时：</li>
-       </ul>
-     </div>
+        <div class='floor3CheckCard'>
+          <div class='floor3Button'>班级渲染</div>
+        </div>
+        <div class='StuManagementShow'>
+          <ul>
+            <li>学籍状态：</li>
+            <li>毕业资格：</li>
+            <li>纪律分： </li>
+            <li>未休学时：</li>
+          </ul>
+        </div>
       </div>
     </div>
     <div class='floor floor4'>
       <div class='floortitle'>学籍记录</div>
       <div class='container floor4Container'>
         <div class='floor3Button floor4Button' style='width:88px'>添加事件</div>
-        <div class='floor4Alert'> 
-         <el-select v-model="stuEventName" placeholder="请选择">
-    <el-option
-      v-for="(item,index) in floor4render"
-      :key="index"
-      :label="item.label"
-      :stuEventName="item.value">
-    </el-option>
-  </el-select>
+        <div class='floor4Alert'>
+          <div class='floor4AlertHeadSelect'>
+          <formtool :item=floor4render></formtool>
+<alertThreePart></alertThreePart>
+          </div>
         </div>
-       <div ></div>
+        <div></div>
       </div>
     </div>
   </div>
@@ -78,6 +74,7 @@
   } from "./mjjTools/reg.js";
   import formtool from "./mjjTools/formtool";
   import alertform from "./mjjTools/alertform";
+  import alertThreePart from "./mjjTools/eventadd/alertThreePart.vue"
   export default {
     name: "creatNewStudent",
     data() {
@@ -94,7 +91,7 @@
           date: '1111111111111',
         }],
         //第二层所在班级展示
-        stuEventName:'',
+        stuEventName: '',
         ///////////////////////////////////////////以下为第一层formtool数据渲染/////////////////////////////////////////////////////////////////////////////////
         floorOneRender: [
           //formtool传入数据格式：{type:'(01)',name:'输入提示',arr:[select/checkbox等选项],style:{样式},rule:{require:'true',message:'',}},
@@ -352,7 +349,7 @@
             },
             {
               type: "06",
-              name: "确定",
+              name: "添加",
               style: {
                 labelWidth: "110px",
                 labelPosition: "left",
@@ -365,52 +362,25 @@
           ]
         },
         ////////////////////////////////////////////////以下为第四层formtool渲染数据//////////////////////////////////////////////////////
-        floor4render: [{
-          value: '1',
-          label: '入学进班'
-        }, {
-          value: '2',
-          label: '扣除纪律分'
-        }, {
-          value: '3',
-          label: '旁听'
-        }, {
-          value: '4',
-          label: '休学'
-        }, {
-          value: '5',
-          label: '复学'
-        },{
-          value: '6',
-          label: '留级'
-        }, {
-          value: '7',
-          label: '毕业'
-        }, {
-          value: '8',
-          label: '结业'
-        }, {
-          value: '9',
-          label: '重读'
-        }, {
-          value: '10',
-          label: '退学'
-        }, {
-          value: '11',
-          label: '毕业资格无效'
-        }],
-      
-      
-      
-      
+        floor4render: {
+          type: "02",
+          englishname: "EventName",
+          name: "添加事件",
+          style: {
+            labelWidth: "100px",
+            labelPosition: "right",
+            width: "",
+          },
+          arr: ['入学进班','扣除纪律分','旁听','休学', '复学', '留级', '毕业', '结业', '重读', '退学', '毕业资格无效']
+        },
       };
     },
     components: {
       formtool,
-      alertform
+      alertform,
+      alertThreePart
     },
     computed: {},
-    mounted: {},
     methods: {
       // 一层所有信息获取，对象形式存入newStuInformation中
       getKeyValue: function(key, value) {
@@ -507,10 +477,10 @@
     left: 80px;
     top: 130px;
   }
-  .floor2DataShow li{
-    float:left;
-    list-style:none;
-    width:250px;
+  .floor2DataShow li {
+    float: left;
+    list-style: none;
+    width: 250px;
   }
   .autoGetTime {
     color: grey;
@@ -519,54 +489,61 @@
     height: 230px;
   }
   /* 以上为第二层样式/////////////////////////////////////////////////////////////////////////// */
-  .floor3{
-   
-     position: relative;
-   
+  .floor3 {
+    position: relative;
   }
-  .floor3CheckCard{
-    position:absolute;
-    left:30px;
-   top:65px;
+  .floor3CheckCard {
+    position: absolute;
+    left: 30px;
+    top: 65px;
   }
-  .floor3Container{
-    height:300px;
+  .floor3Container {
+    height: 300px;
   }
-  .floor3Button{
-    width:170px;
-    height:35px;
-    border-radius:6px;
-    background-color:#0168b7;
-    line-height:39px;
-    font-size:14px;
-    color:#fff;
-    text-align:center;
+  .floor3Button {
+    width: 170px;
+    height: 35px;
+    border-radius: 6px;
+    background-color: #0168b7;
+    line-height: 39px;
+    font-size: 14px;
+    color: #fff;
+    text-align: center;
     font-family: '微软雅黑';
     font-weight: 400;
-    margin-right:45px;
+    margin-right: 45px;
   }
-  .StuManagementShow ul{
+  .StuManagementShow ul {
     position: absolute;
-    top:140px;
+    top: 140px;
   }
-  .StuManagementShow li{
-    margin-bottom:30px;
+  .StuManagementShow li {
+    margin-bottom: 30px;
     list-style: none;
   }
   /* 以上为第三层样式////////////////////////////////////////////////////////////////// */
-  .floor4{
+  .floor4 {
     position: relative;
   }
-  .floor4Container{
-    height:280px;
+  .floor4Container {
+    height: 280px;
   }
-  .floor4Button{
-    position:absolute;
-    top:70px;
-    left:35px;
+  .floor4Button {
+    position: absolute;
+    top: 70px;
+    left: 35px;
   }
-  .floor4Alert{
-    width:480px;
-    height:310px;
+  .floor4Alert {
+    width: 480px;
+    height: 310px;
+    position: absolute;
+    left:130px;
+    top:55px;
+  }
+  .floor4AlertHeadSelect{
+    width:265px;
+   
+   
+
   }
 </style>

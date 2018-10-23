@@ -51,10 +51,19 @@
     </div>
     <div class='floor floor4'>
       <div class='floortitle'>学籍记录</div>
-      <div class='container'>
-        <div class='floor3Button' style='{width:88px}'>添加事件</div>
-        <alertform></alertform>
-<div></div>
+      <div class='container floor4Container'>
+        <div class='floor3Button floor4Button' style='width:88px'>添加事件</div>
+        <div class='floor4Alert'> 
+         <el-select v-model="stuEventName" placeholder="请选择">
+    <el-option
+      v-for="(item,index) in floor4render"
+      :key="index"
+      :label="item.label"
+      :stuEventName="item.value">
+    </el-option>
+  </el-select>
+        </div>
+       <div ></div>
       </div>
     </div>
   </div>
@@ -85,6 +94,7 @@
           date: '1111111111111',
         }],
         //第二层所在班级展示
+        stuEventName:'',
         ///////////////////////////////////////////以下为第一层formtool数据渲染/////////////////////////////////////////////////////////////////////////////////
         floorOneRender: [
           //formtool传入数据格式：{type:'(01)',name:'输入提示',arr:[select/checkbox等选项],style:{样式},rule:{require:'true',message:'',}},
@@ -353,7 +363,46 @@
               }
             }
           ]
-        }
+        },
+        ////////////////////////////////////////////////以下为第四层formtool渲染数据//////////////////////////////////////////////////////
+        floor4render: [{
+          value: '1',
+          label: '入学进班'
+        }, {
+          value: '2',
+          label: '扣除纪律分'
+        }, {
+          value: '3',
+          label: '旁听'
+        }, {
+          value: '4',
+          label: '休学'
+        }, {
+          value: '5',
+          label: '复学'
+        },{
+          value: '6',
+          label: '留级'
+        }, {
+          value: '7',
+          label: '毕业'
+        }, {
+          value: '8',
+          label: '结业'
+        }, {
+          value: '9',
+          label: '重读'
+        }, {
+          value: '10',
+          label: '退学'
+        }, {
+          value: '11',
+          label: '毕业资格无效'
+        }],
+      
+      
+      
+      
       };
     },
     components: {
@@ -503,5 +552,21 @@
   .StuManagementShow li{
     margin-bottom:30px;
     list-style: none;
+  }
+  /* 以上为第三层样式////////////////////////////////////////////////////////////////// */
+  .floor4{
+    position: relative;
+  }
+  .floor4Container{
+    height:280px;
+  }
+  .floor4Button{
+    position:absolute;
+    top:70px;
+    left:35px;
+  }
+  .floor4Alert{
+    width:480px;
+    height:310px;
   }
 </style>

@@ -38,35 +38,12 @@
   </div>
 </template>
 <script>
-export default {
-  name: "formtool",
-  props: ["item"],
-  watch: {
-    form: {
-      handler(newValue, oldValue) {
-        console.log(newValue);
-      },
-      deep: true
-    },
-    item() {}
-  },
-  beforeMount() {},
-  mounted() {
-    var that=this
-    if (this.item.type == 1) {
-      this.rules2 = Object.assign({}, this.item.rules);
-      this.rules2.rule[0].validator = this.item.rules.rule[0].validator.bind(
-        this
-      );
-    }
-    this.$nextTick(function(){
-       that.mounting = true;
-    })
-   
-  },
-  data() {
-    return {
+  export default {
+    name: "formtool",
+    props: ["item"],
+    watch: {
       form: {
+<<<<<<< HEAD
         value: "",
         checkboxvalue: [],
        
@@ -79,23 +56,72 @@ export default {
     blured: function() {
       this.$emit("keyValue", this.item.englishname, this.form);
       
+=======
+        handler(newValue, oldValue) {
+          console.log(newValue);
+        },
+        deep: true
+      },
+      item() {}
+>>>>>>> e93bca3c448bdd8f51a1d80381b7abdec37b7c83
     },
-    //取消按钮点击事件
-    cancel: function() {
-      this.$emit("cancel");
+    beforeMount() {},
+    mounted() {
+      var that = this;
+      if (typeof this.item.rules == 'object') {
+        this.rules2 = Object.assign({}, this.item.rules);
+        for (var i = 0; i < this.rules2.rule.length; i++) {
+          if (this.rules2.rule[i].validator) {
+            this.rules2.rule[i].validator = this.item.rules.rule[i].validator.bind(
+              this
+            );
+          }
+        }
+      }
+      this.$nextTick(function() {
+        that.mounting = true;
+      })
     },
+<<<<<<< HEAD
     //确定按钮点击事件
     submited: function() {
       this.$emit("submited");
     }
   }
 };
+=======
+    data() {
+      return {
+        form: {
+          value: "",
+          checkboxvalue: []
+        },
+        rules2: {},
+        mounting: false
+      };
+    },
+    methods: {
+      blured: function() {
+        this.$emit("keyValue", this.item.englishname, this.form);
+        //  console.log(this.form.checkboxvalue)
+      },
+      //取消按钮点击事件
+      cancel: function() {
+        this.$emit("cancel");
+      },
+      //确定按钮点击事件
+      // submit: function() {
+      //   this.$emit("submit");
+      // }
+    }
+  };
+>>>>>>> e93bca3c448bdd8f51a1d80381b7abdec37b7c83
 </script>
 
 <style>
-.mjjformtool .el-select {
-  display: inline-block;
-  position: relative;
-  width: 100%;
-}
+  .mjjformtool .el-select {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+  }
 </style>

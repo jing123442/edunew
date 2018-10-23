@@ -44,6 +44,7 @@
 
 <script>
   import {
+<<<<<<< HEAD
     isMobil
   } from "./mjjTools/reg.js";
   import {
@@ -53,6 +54,11 @@
     isID
   } from "./mjjTools/reg.js";
   import {
+=======
+    isMobil,
+    isSelected,
+    isID,
+>>>>>>> e93bca3c448bdd8f51a1d80381b7abdec37b7c83
     isNormalText
   } from "./mjjTools/reg.js";
   import formtool from "./mjjTools/formtool";
@@ -193,9 +199,14 @@
               inLine: ""
             },
             rules: {
+<<<<<<< HEAD
               rule: [{
                 required: true,
                 message: '请选择学历',
+=======
+              rule: [ {  required: true,
+                validator: isSelected,
+>>>>>>> e93bca3c448bdd8f51a1d80381b7abdec37b7c83
                 trigger: "change"
               }]
             }

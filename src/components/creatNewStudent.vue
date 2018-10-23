@@ -17,7 +17,7 @@
         <span class='floor2Text'>所属班级：</span>
         <formtool :item='floorTworenderbutton' @click.native='floorTwoClickShow'></formtool>
         <div class='alertSelectClass' v-show='floorTwoVShow'>
-          <alertform :item='floorTwoalertStyleaRender' @floorTwoClickHide='floorTwoClickHide'></alertform>
+          <alertform :item='floorTwoalertStyleaRender' @canceled='floorTwoClickCancel'></alertform>
         </div>
         <div class='floor2DataShow'>
           <!-- <div>{{this.newStuInformation.class}}</div> -->
@@ -37,8 +37,20 @@
 </template>
 
 <script>
-  import formtool from "./mjjTools/formtool"
-  import alertform from "./mjjTools/alertform"
+  import {
+    isMobil
+  } from "./mjjTools/reg.js";
+  import {
+    isSelected
+  } from './mjjTools/reg.js';
+  import {
+    isID
+  } from "./mjjTools/reg.js";
+   import {
+    isNormalText
+  } from "./mjjTools/reg.js";
+  import formtool from "./mjjTools/formtool";
+  import alertform from "./mjjTools/alertform";
   export default {
     name: "creatNewStudent",
     data() {
@@ -53,28 +65,30 @@
         ///////////////////////////////////////////以下为第一层formtool数据渲染/////////////////////////////////////////////////////////////////////////////////
         floorOneRender: [
           //formtool传入数据格式：{type:'(01)',name:'输入提示',arr:[select/checkbox等选项],style:{样式},rule:{require:'true',message:'',}},
+          // 所属学校渲染
           {
             type: "02",
-            englishname: 'localschool',
+            englishname: "schoolName",
             name: "所属学校：",
             arr: ["青岛", "西安"],
             style: {
               labelWidth: "110px",
               labelPosition: "right",
               width: "7",
-              inLine: ''
+              inLine: ""
             },
             rules: {
               rule: [{
-                require: "true",
-                message: "请输入",
+                required: true,
+                message: '请选择所属学校',
                 trigger: "blur"
               }]
             }
           },
+          //  所属专业渲染
           {
             type: "02",
-            englishname: 'localmajor',
+            englishname: "professionName",
             name: "所属专业：",
             arr: ["前端", "大数据"],
             style: {
@@ -82,16 +96,19 @@
               labelPosition: "right",
               width: "7"
             },
-            rule: {
-              require: "true",
-              message: ""
+            rules: {
+              rule: [{
+                required: true,
+                message: '请选择所属专业',
+                trigger: "blur"
+              }]
             }
           },
+          // 学员学号自动生成  后台生成？？前端自己写？？
           {
             type: "01",
-            name: "姓名",
-            englishname: 'dgh',
-            arr: ["青岛", "西安"],
+            name: "学员学号:",
+            englishname: "stuId",
             style: {
               labelWidth: "100px",
               labelPosition: "right",
@@ -99,50 +116,137 @@
             },
             rules: {
               rule: [{
-                require: "true",
-                message: "请输入",
+                required: true,
+                validator: isMobil,
                 trigger: "blur"
               }]
             }
           },
           {
-            type: "03",
-            englishname: 'dddr',
-            name: "噗噗",
-            arr: ["前端", "大数据"],
+            type: "01",
+            name: "姓名:",
+            englishname: "stuName",
             style: {
               labelWidth: "100px",
               labelPosition: "right",
               width: "7"
             },
-            rule: {
-              require: "true",
-              message: ""
-            }
-          }, {
-            type: "04",
-            name: "呵呵",
-            englishname: 'dddr',
-            arr: ["前端", "大数据"],
-            style: {
-              labelWidth: "100px",
-              labelPosition: "right",
-              width: "7"
-            },
-            rule: {
-              require: "true",
-              message: ""
+            rules: {
+              rule: [{
+                required: true,
+                validator: isMobil,
+                trigger: "blur"
+              }]
             }
           },
           {
-            type: "05",
-            name: "按钮",
+            type: "01",
+            name: "身份证:",
+            englishname: "stuIDCard",
             style: {
-              // labelWidth: "100px",
-              // labelPosition: "right",
-              // width: "7"
+              labelWidth: "100px",
+              labelPosition: "right",
+              width: "7"
             },
-          }
+            rules: {
+              rule: [{
+                required: true,
+                validator: isID,
+                trigger: "blur"
+              }]
+            }
+          },
+          {
+            type: "02",
+            englishname: "stuSex",
+            name: "性别：",
+            arr: ["男", "女"],
+            style: {
+              labelWidth: "110px",
+              labelPosition: "right",
+              width: "7",
+              inLine: ""
+            },
+             rules: {
+                rule: [
+                  {
+                    required: true,
+                    validator: isSelected,
+                    trigger: "blur"
+                  }
+                ]
+              }
+          },
+          {
+            type: "02",
+            englishname: "stuSex",
+            name: "学历：",
+            arr: ["硕士及以上", "本科", "专科", "高职"],
+            style: {
+              labelWidth: "110px",
+              labelPosition: "right",
+              width: "7",
+              inLine: ""
+            },
+            rules: {
+              rule: [{
+                required: true,
+                validator: isSelected,
+                trigger: "blur"
+              }]
+            }
+          },
+          {
+            type: "01",
+            name: "毕业学校:",
+            englishname: "stuSelfSchoolName",
+            style: {
+              labelWidth: "100px",
+              labelPosition: "right",
+              width: "7"
+            },
+            rules: {
+              rule: [{
+                required: true,
+                validator: isNormalText,
+                trigger: "blur"
+              }]
+            }
+          },
+          {
+            type: "01",
+            name: "专业:",
+            englishname: "stuSelfProfessionName",
+            style: {
+              labelWidth: "100px",
+              labelPosition: "right",
+              width: "7"
+            },
+            rules: {
+              rule: [{
+                required: true,
+                validator: isMobil,
+                trigger: "blur"
+              }]
+            }
+          },
+          {
+            type: "01",
+            name: "手机:",
+            englishname: "stuPhone",
+            style: {
+              labelWidth: "100px",
+              labelPosition: "right",
+              width: "7"
+            },
+            rules: {
+              rule: [{
+                required: true,
+                validator: isMobil,
+                trigger: "blur"
+              }]
+            }
+          },
         ],
         ////////////////////////////////////////////////以下为第二层formtool渲染数据///////////////////////////////////////////////////////
         floorTworenderbutton: {
@@ -152,8 +256,8 @@
             labelWidth: "110px",
             labelPosition: "left",
             width: "",
-            buttontype: "primary",
-          },
+            buttontype: "primary"
+          }
         },
         floorTwoalertStyleaRender: {
           // alertform需传入样式：头部padding（默认30px），内容宽度，弹出框总宽度
@@ -163,59 +267,62 @@
             // paddingTop:''
           },
           alertRender: [{
-            type: "02",
-            englishname: 'localschool',
-            name: "选择学校：",
-            arr: ["青岛", "西安"],
-            style: {
-              labelWidth: "110px",
-              labelPosition: "right",
-              width: "7",
-              inLine: ''
+              type: "02",
+              englishname: "localschool",
+              name: "选择学校：",
+              arr: ["青岛", "西安"],
+              style: {
+                labelWidth: "110px",
+                labelPosition: "right",
+                width: "7",
+                inLine: ""
+              }
             },
-          }, {
-            type: "02",
-            englishname: 'localschool',
-            name: "选择学校：",
-            arr: ["青岛", "西安"],
-            style: {
-              labelWidth: "110px",
-              labelPosition: "right",
-              width: "7",
-              inLine: '',
-            }
-          }, {
-            type: "02",
-            englishname: 'localschool',
-            name: "选择班级：",
-            arr: ["青岛", "西安"],
-            style: {
-              labelWidth: "110px",
-              labelPosition: "right",
-              width: "7",
-              inLine: ''
-            }
-          }, {
-            type: "06",
-            name: "确定",
-            style: {
-              labelWidth: "110px",
-              labelPosition: "left",
-              width: "",
-              buttontype: "primary",
-              buttonTwo: true,
-              buttonTwoMargenLeft: '30px',
+            {
+              type: "02",
+              englishname: "localschool",
+              name: "选择学校：",
+              arr: ["青岛", "西安"],
+              style: {
+                labelWidth: "110px",
+                labelPosition: "right",
+                width: "7",
+                inLine: ""
+              }
             },
-          }, ],
+            {
+              type: "02",
+              englishname: "localschool",
+              name: "选择班级：",
+              arr: ["青岛", "西安"],
+              style: {
+                labelWidth: "110px",
+                labelPosition: "right",
+                width: "7",
+                inLine: ""
+              }
+            },
+            {
+              type: "06",
+              name: "确定",
+              style: {
+                labelWidth: "110px",
+                labelPosition: "left",
+                width: "",
+                buttontype: "primary",
+                buttonTwo: true,
+                buttonTwoMargenLeft: "30px"
+              }
+            }
+          ]
         }
       };
     },
     components: {
       formtool,
-      alertform,
+      alertform
     },
-    computed: {
-    },
+    computed: {},
     methods: {
       // 一层所有信息获取，对象形式存入newStuInformation中
       getKeyValue: function(key, value) {
@@ -225,14 +332,17 @@
           this.newStuInformation[key] = value.value;
         }
       },
+      //点击添加班级后 alertform显示
       floorTwoClickShow: function() {
         this.floorTwoVShow = true;
-        console.log('156456')
+        console.log("156456");
       },
-      floorTwoClickHide: function() {
+      //alertform中 取消 点击触发
+      floorTwoClickCancel: function() {
         this.floorTwoVShow = false;
-        console.log('jignjing')
+        console.log("jignjing");
       },
+      // alerform中 确定 点击触发
     }
   };
 </script>

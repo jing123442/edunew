@@ -2,20 +2,24 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import creatNewStudent from '@/components/creatNewStudent'
+import creatNewClass from '@/components/creatNewClass'
 
 Vue.use(Router)
 
 export default new Router({
-  routes: [
-    {
+  routes: [{
       path: '/',
       name: 'HelloWorld',
       component: HelloWorld
     },
     {
-      path: '/jing',
-      name: 'HelloWorld',
+      path: '/newStudent',
+      name: 'newStudent',
       component: creatNewStudent
+    }, {
+      path: '/newClass',
+      name: 'newClass',
+      component: creatNewClass
     }
   ]
 })

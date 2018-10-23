@@ -21,23 +21,38 @@ export var getAllClass = { //获取所有班级
 export var getAllSchool = { //3.4	获取所有学校
     schoolList: [
         {
-            schoolName: '青岛学校',
+            schoolName: '青岛学校1',
             schoolCode: 'QD01'
-        }
+        }, {
+            schoolName: '青岛学校2',
+            schoolCode: 'QD02'
+        }, {
+            schoolName: '青岛学校3',
+            schoolCode: 'QD03'
+        }, {
+            schoolName: '青岛学校4',
+            schoolCode: 'QD04'
+        },
     ]
 }
 export var getAllProfession = { //3.5	获取专业
     professionList: [
         {
-            schoolName: '青岛学校',
-            schoolCode: 'QD01'
-        }
+            professionCode: '01',
+            professionName: '移动互联前端'
+        },{
+            professionCode: '02',
+            professionName: 'JAVA+大数据'
+        },{
+            professionCode: '03',
+            professionName: '人工智能'
+        },
     ]
 }
 export var getAllProduct = { //3.6	获取产品
-    productList: [
+    'productList|3': [
         {
-            productName: '前端',
+            'productName|+1': ['前端','Java','大数据'],
             productCode: '01'
         }
     ]

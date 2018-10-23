@@ -1,11 +1,11 @@
 <template>
   <div class='mjjformtool'>
-    <el-form ref="form" :model="form" :label-width="item.style.labelWidth||'100px'" :rules='item.rules' :label-position='item.style.labelPosition' :inline='item.style.inLine||false'>
-      <el-form-item :label="item.name" v-if='item.type==1'>
+    <el-form v-if='mounting' ref="form" :model="form" :label-width="item.style.labelWidth||'100px'" :rules='rules2' :label-position='item.style.labelPosition || right' :inline='item.style.inLine||false'>
+      <el-form-item :label="item.name" v-if='item.type==1' prop='rule'>
         <el-input v-model="form.value" @submit.native.prevent @input='blured'></el-input>
       </el-form-item>
       <!-- input -->
-      <el-form-item :label="item.name" v-if='item.type==2' prop=rule>
+      <el-form-item :label="item.name" v-if='item.type==2' prop='rule'>
         <el-select v-model="form.value" placeholder="请选择" @input='blured'>
           <el-option :label="content" v-for='(content,index) in item.arr' :key='index' :value='content'></el-option>
         </el-select>
@@ -29,53 +29,72 @@
         </el-col>
       </el-form-item>
       <!-- datapick -->
-      
-      <el-form-item v-if='item.type==6'>
-        <el-button :type="item.style.buttontype"   @click='chufa'>{{item.name}}</el-button>
-        <el-button v-if='item.style.buttonTwo ||false' :style='{marginLeft:item.style.buttonTwoMargenLeft || "30px"}' @click='chufa'>取消</el-button>
+      <el-form-item v-if='item.type==6' prop='rule'>
+        <el-button :type="item.style.buttontype">{{item.name}}</el-button>
+        <el-button v-if='item.style.buttonTwo ||false' :style='{marginLeft:item.style.buttonTwoMargenLeft || "30px"}' @click='cancel'>取消</el-button>
       </el-form-item>
       <!-- button -->
     </el-form>
   </div>
 </template>
-
 <script>
 export default {
   name: "formtool",
-
   props: ["item"],
- 
+  watch: {
+    form: {
+      handler(newValue, oldValue) {
+        console.log(newValue);
+      },
+      deep: true
+    },
+    item() {}
+  },
+  beforeMount() {},
+  mounted() {
+    var that=this
+    if (this.item.type == 1) {
+      this.rules2 = Object.assign({}, this.item.rules);
+      this.rules2.rule[0].validator = this.item.rules.rule[0].validator.bind(
+        this
+      );
+    }
+    this.$nextTick(function(){
+       that.mounting = true;
+    })
+   
+  },
   data() {
     return {
       form: {
         value: "",
-        checkboxvalue:[]
-      }
+        checkboxvalue: []
+      },
+      rules2: {},
+      mounting: false
     };
   },
   methods: {
-     blured:function(){
-       this.$emit('keyValue',this.item.englishname,this.form)
+    blured: function() {
+      this.$emit("keyValue", this.item.englishname, this.form);
       //  console.log(this.form.checkboxvalue)
-     },
-     chufa:function(){
-       this.$emit('bubbling');
-       
-     }
-    
-    
-
+    },
+    //取消按钮点击事件
+    cancel: function() {
+      this.$emit("cancel");
+    },
+    //确定按钮点击事件
+    // submit: function() {
+    //   this.$emit("submit");
+    // }
   }
 };
 </script>
 
 <style>
-
 .mjjformtool .el-select {
-    display: inline-block;
-    position: relative;
-    width: 100%;
-  }
-
-
+  display: inline-block;
+  position: relative;
+  width: 100%;
+}
 </style>

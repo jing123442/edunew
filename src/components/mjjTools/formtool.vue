@@ -43,27 +43,12 @@
     props: ["item"],
     watch: {
       form: {
-<<<<<<< HEAD
-        value: "",
-        checkboxvalue: [],
-       
-      },
-      rules2: {},
-      mounting: false
-    };
-  },
-  methods: {
-    blured: function() {
-      this.$emit("keyValue", this.item.englishname, this.form);
-      
-=======
         handler(newValue, oldValue) {
           console.log(newValue);
         },
         deep: true
       },
       item() {}
->>>>>>> e93bca3c448bdd8f51a1d80381b7abdec37b7c83
     },
     beforeMount() {},
     mounted() {
@@ -82,14 +67,6 @@
         that.mounting = true;
       })
     },
-<<<<<<< HEAD
-    //确定按钮点击事件
-    submited: function() {
-      this.$emit("submited");
-    }
-  }
-};
-=======
     data() {
       return {
         form: {
@@ -110,12 +87,11 @@
         this.$emit("cancel");
       },
       //确定按钮点击事件
-      // submit: function() {
-      //   this.$emit("submit");
-      // }
+      submited: function() {
+        this.$emit("submited");
+      }
     }
   };
->>>>>>> e93bca3c448bdd8f51a1d80381b7abdec37b7c83
 </script>
 
 <style>

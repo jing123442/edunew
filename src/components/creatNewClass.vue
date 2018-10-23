@@ -38,7 +38,7 @@
     import formtool from './mjjTools/formtool'
     export default {
         components:{
-formtool,
+        formtool,
         },
         name:'creatNewClass',
         props:['item'],

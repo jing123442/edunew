@@ -1,6 +1,6 @@
 <template>
     <div>
-我的宝贝是个噗噗
+我的宝贝是个噗噗12
     </div>
 </template>
 

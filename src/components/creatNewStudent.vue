@@ -13,25 +13,49 @@
     </div>
     <div class='floor floor2 clear'>
       <div class='floortitle'>班级信息</div>
-      <div class='container'>
+      <div class='container containerfloor2'>
         <span class='floor2Text'>所属班级：</span>
         <formtool :item='floorTworenderbutton' @click.native='floorTwoClickShow'></formtool>
         <div class='alertSelectClass' v-show='floorTwoVShow'>
-          <alertform :item='floorTwoalertStyleaRender' @canceled='floorTwoClickCancel'></alertform>
+          <alertform :item='floorTwoalertStyleaRender' @canceled='floorTwoClickCancel' @submited='floorTwoClickSubmit'></alertform>
         </div>
         <div class='floor2DataShow'>
-          <!-- <div>{{this.newStuInformation.class}}</div> -->
-          <!-- <div>入班时间：{{}}</div> -->
+          <ul v-for='(content,index) in floor2tableData' :key='index' class='floor2DataShowEach'>
+            <li>{{content.className}}</li>
+            <li>{{content.date}}</li>
+          </ul>
         </div>
       </div>
+      <!-- <table class='floor2DataShow'>
+              <tr class=''>
+                <td></td>
+                <td class='autoGetTime'>入班时间：{{new Date().getFullYear()+'-'+(new Date().getMonth()+1)+'-'+new Date().getDate()+' '+new Date().getHours()+':'+new Date().getMinutes()+':'+new Date().getSeconds()}}</td>
+              </tr>
+            </table> -->
     </div>
     <div class='floor floor3'>
       <div class='floortitle'>学籍信息</div>
-      <div class='container'></div>
+      <div class='container floor3Container'>
+     <div class='floor3CheckCard'>
+       <div class='floor3Button'>班级渲染</div>
+       </div> 
+     <div class='StuManagementShow'>
+       <ul>
+         <li>学籍状态：</li>
+         <li>毕业资格：</li>
+         <li>纪律分：  </li>
+         <li>未休学时：</li>
+       </ul>
+     </div>
+      </div>
     </div>
     <div class='floor floor4'>
       <div class='floortitle'>学籍记录</div>
-      <div class='container'></div>
+      <div class='container'>
+        <div class='floor3Button' style='{width:88px}'>添加事件</div>
+        <alertform></alertform>
+<div></div>
+      </div>
     </div>
   </div>
 </template>
@@ -55,6 +79,11 @@
         // 第二层数据*****************************
         //alert选择框 显示控制
         floorTwoVShow: false,
+        fullData: '',
+        floor2tableData: [{
+          className: 'wwwwwww',
+          date: '1111111111111',
+        }],
         //第二层所在班级展示
         ///////////////////////////////////////////以下为第一层formtool数据渲染/////////////////////////////////////////////////////////////////////////////////
         floorOneRender: [
@@ -128,7 +157,7 @@
             rules: {
               rule: [{
                 required: true,
-                validator: isMobil,
+                validator: isNormalText,
                 trigger: "blur"
               }]
             }
@@ -171,7 +200,7 @@
           },
           {
             type: "02",
-            englishname: "stuSex",
+            englishname: "stuQualification",
             name: "学历：",
             arr: ["硕士及以上", "本科", "专科", "高职"],
             style: {
@@ -181,7 +210,8 @@
               inLine: ""
             },
             rules: {
-              rule: [ {  required: true,
+              rule: [{
+                required: true,
                 validator: isSelected,
                 trigger: "change"
               }]
@@ -216,7 +246,7 @@
             rules: {
               rule: [{
                 required: true,
-                validator: isMobil,
+                validator: isNormalText,
                 trigger: "blur"
               }]
             }
@@ -225,6 +255,23 @@
             type: "01",
             name: "手机:",
             englishname: "stuPhone",
+            style: {
+              labelWidth: "100px",
+              labelPosition: "right",
+              width: "7"
+            },
+            rules: {
+              rule: [{
+                required: true,
+                validator: isMobil,
+                trigger: "blur"
+              }]
+            }
+          },
+          {
+            type: "01",
+            name: "邮箱:",
+            englishname: "stuMail",
             style: {
               labelWidth: "100px",
               labelPosition: "right",
@@ -259,8 +306,20 @@
           },
           alertRender: [{
               type: "02",
-              englishname: "localschool",
+              englishname: "schoolName",
               name: "选择学校：",
+              arr: ['西安', '青岛'],
+              style: {
+                labelWidth: "110px",
+                labelPosition: "right",
+                width: "7",
+                inLine: ""
+              }
+            },
+            {
+              type: "02",
+              englishname: "professionName",
+              name: "选择专业：",
               arr: ["青岛", "西安"],
               style: {
                 labelWidth: "110px",
@@ -271,21 +330,9 @@
             },
             {
               type: "02",
-              englishname: "localschool",
-              name: "选择学校：",
-              arr: ["青岛", "西安"],
-              style: {
-                labelWidth: "110px",
-                labelPosition: "right",
-                width: "7",
-                inLine: ""
-              }
-            },
-            {
-              type: "02",
-              englishname: "localschool",
+              englishname: "className",
               name: "选择班级：",
-              arr: ["青岛", "西安"],
+              arr: ["前端1班", "前端2班"],
               style: {
                 labelWidth: "110px",
                 labelPosition: "right",
@@ -314,6 +361,7 @@
       alertform
     },
     computed: {},
+    mounted: {},
     methods: {
       // 一层所有信息获取，对象形式存入newStuInformation中
       getKeyValue: function(key, value) {
@@ -322,6 +370,7 @@
         } else {
           this.newStuInformation[key] = value.value;
         }
+        console.log(this.newStuInformation)
       },
       //点击添加班级后 alertform显示
       floorTwoClickShow: function() {
@@ -334,6 +383,14 @@
         console.log("jignjing");
       },
       // alerform中 确定 点击触发
+      floorTwoClickSubmit: function(alertobj) {
+        this.floorTwoVShow = false;
+        for (props in alertobj) {
+          this.newStuInformation[props] = alertobj[props];
+        }
+        //  var d=new Date();
+        //  this.fullData=d.getFullYear()+'-'(d.getMonth()+1)+'-'+d.getDate()+d.getTime();
+      }
     }
   };
 </script>
@@ -398,7 +455,53 @@
   }
   .floor2DataShow {
     position: absolute;
-    left: 125px;
-    top: 150px;
+    left: 80px;
+    top: 130px;
+  }
+  .floor2DataShow li{
+    float:left;
+    list-style:none;
+    width:250px;
+  }
+  .autoGetTime {
+    color: grey;
+  }
+  .containerfloor2 {
+    height: 230px;
+  }
+  /* 以上为第二层样式/////////////////////////////////////////////////////////////////////////// */
+  .floor3{
+   
+     position: relative;
+   
+  }
+  .floor3CheckCard{
+    position:absolute;
+    left:30px;
+   top:65px;
+  }
+  .floor3Container{
+    height:300px;
+  }
+  .floor3Button{
+    width:170px;
+    height:35px;
+    border-radius:6px;
+    background-color:#0168b7;
+    line-height:39px;
+    font-size:14px;
+    color:#fff;
+    text-align:center;
+    font-family: '微软雅黑';
+    font-weight: 400;
+    margin-right:45px;
+  }
+  .StuManagementShow ul{
+    position: absolute;
+    top:140px;
+  }
+  .StuManagementShow li{
+    margin-bottom:30px;
+    list-style: none;
   }
 </style>

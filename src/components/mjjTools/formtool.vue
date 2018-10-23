@@ -30,7 +30,7 @@
       </el-form-item>
       <!-- datapick -->
       <el-form-item v-if='item.type==6' prop='rule'>
-        <el-button :type="item.style.buttontype">{{item.name}}</el-button>
+        <el-button :type="item.style.buttontype" @click='submited'>{{item.name}}</el-button>
         <el-button v-if='item.style.buttonTwo ||false' :style='{marginLeft:item.style.buttonTwoMargenLeft || "30px"}' @click='cancel'>取消</el-button>
       </el-form-item>
       <!-- button -->
@@ -87,9 +87,9 @@
         this.$emit("cancel");
       },
       //确定按钮点击事件
-      // submit: function() {
-      //   this.$emit("submit");
-      // }
+      submited: function() {
+        this.$emit("submited");
+      }
     }
   };
 </script>

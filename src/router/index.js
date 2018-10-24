@@ -7,12 +7,12 @@ import creatNewClass from '@/components/creatNewClass'
 Vue.use(Router)
 
 export default new Router({
-  routes: [{
+  routes: [
+    {
       path: '/',
       name: 'HelloWorld',
       component: HelloWorld
-    },
-    {
+    }, {
       path: '/newStudent',
       name: 'newStudent',
       component: creatNewStudent
@@ -20,6 +20,14 @@ export default new Router({
       path: '/newClass',
       name: 'newClass',
       component: creatNewClass
+    }, {
+      path: '/StuManagement',
+      name: 'StuManagement',
+      component: () => import ('../components/StuManagement')
+    }, {
+      path: '/ClassManagement',
+      name: 'classManagement',
+      component: () => import ('../components/ClassManagement')
     }
   ]
 })

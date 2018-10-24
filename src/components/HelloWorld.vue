@@ -1,21 +1,27 @@
 <template>
   <div class="hello">
+    <component :is="componentName"></component>
   </div>
 </template>
 
 <script>
-  import creatNewStudent from './creatNewStudent'
+  // import creatNewStudent from './creatNewStudent'
   export default {
     name: 'HelloWorld',
     data() {
-      return {}
+      return {
+        componentName: 'creatNewStudent'
+      }
+    },
+    components: {
+      creatNewStudent: () =>
+        import ('./creatNewStudent')
     },
     mounted() {
       console.log('ppppp')
       this.$axios.get('/getallclass').then(function(res) {
         console.log(res)
       })
-     
     }
   }
 </script>

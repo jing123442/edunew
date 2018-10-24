@@ -1,6 +1,8 @@
 <template>
   <div class='root'>
-    <div class='head'><span>新增学员</span></div>
+    <div class='head'>
+      <span>新增学员</span>
+    </div>
     <div class='floor floor1'>
       <div class='floortitle'>基本信息</div>
       <div class='container'>
@@ -15,9 +17,10 @@
       <div class='floortitle'>班级信息</div>
       <div class='container containerfloor2'>
         <span class='floor2Text'>所属班级：</span>
-        <formtool :item='floorTworenderbutton' @click.native='floorTwoClickShow'></formtool>
+        <div class='floor3Button floor2Button' style='width:88px' @click='floorTwoClickShow'>添加班级
+        </div>
         <div class='alertSelectClass' v-show='floorTwoVShow'>
-          <alertform :item='floorTwoalertStyleaRender' @canceled='floorTwoClickCancel' @submited='floorTwoClickSubmit'></alertform>
+          <alertform @canceled='floorTwoClickCancel' @submitThired='floorTwoClickSubmit'></alertform>
         </div>
         <div class='floor2DataShow'>
           <ul v-for='(content,index) in floor2tableData' :key='index' class='floor2DataShowEach'>
@@ -27,11 +30,11 @@
         </div>
       </div>
       <!-- <table class='floor2DataShow'>
-                  <tr class=''>
-                    <td></td>
-                    <td class='autoGetTime'>入班时间：{{new Date().getFullYear()+'-'+(new Date().getMonth()+1)+'-'+new Date().getDate()+' '+new Date().getHours()+':'+new Date().getMinutes()+':'+new Date().getSeconds()}}</td>
-                  </tr>
-                </table> -->
+                    <tr class=''>
+                      <td></td>
+                      <td class='autoGetTime'>入班时间：{{new Date().getFullYear()+'-'+(new Date().getMonth()+1)+'-'+new Date().getDate()+' '+new Date().getHours()+':'+new Date().getMinutes()+':'+new Date().getSeconds()}}</td>
+                    </tr>
+                  </table> -->
     </div>
     <div class='floor floor3'>
       <div class='floortitle'>学籍信息</div>
@@ -43,7 +46,7 @@
           <ul>
             <li>学籍状态：</li>
             <li>毕业资格：</li>
-            <li>纪律分： </li>
+            <li>纪律分：</li>
             <li>未休学时：</li>
           </ul>
         </div>
@@ -52,12 +55,14 @@
     <div class='floor floor4'>
       <div class='floortitle'>学籍记录</div>
       <div class='container floor4Container'>
-        <div class='floor3Button floor4Button' style='width:88px'>添加事件</div>
-        <div class='floor4Alert'>
-          <div class='floor4AlertHeadSelect'>
-          <formtool :item=floor4render></formtool>
-<alertThreePart></alertThreePart>
+        <div class='floor3Button floor4Button' style='width:88px' @click='floorFourClickShow'>添加事件</div>
+        <div class='floor4Alert' v-show='floor4Show'>
+          <div class='floor4AlertHeadSelect' >
+            <formtool :item=floor4render @keyValue='floor4AlertEventNum'></formtool>
           </div>
+          <div class='floor4AlertBody'> <alertThreePart @canceled='floorFourClickCancel' @submitThired='floorFourClickSubmit'  :showNum='floor4ArletNum'></alertThreePart>
+          <alertTwoPart @canceled='floorFourClickCancel' @submitThired='floorFourClickSubmit' :showNum='floor4ArletNum'></alertTwoPart></div>
+         <alertFourPart @canceled='floorFourClickCancel' @submitThired='floorFourClickSubmit' :showNum='floor4ArletNum'></alertFourPart>
         </div>
         <div></div>
       </div>
@@ -74,33 +79,39 @@
   } from "./mjjTools/reg.js";
   import formtool from "./mjjTools/formtool";
   import alertform from "./mjjTools/alertform";
-  import alertThreePart from "./mjjTools/eventadd/alertThreePart.vue"
+  import alertThreePart from "./mjjTools/eventadd/alertThreePart.vue";
+  import alertTwoPart from "./mjjTools/eventadd/alertTwoPart.vue";
+  import alertFourPart from "./mjjTools/eventadd/alertFourPart.vue";
   export default {
     name: "creatNewStudent",
     data() {
       return {
         // 获取到的value值均存在下面的对象中
         newStuInformation: {},
-        // 第一层数据*****************************
-        // 第二层数据*****************************
-        //alert选择框 显示控制
+        // 第一层数据***************************** 第二层数据*****************************
+        // alert选择框 显示控制
         floorTwoVShow: false,
         fullData: '',
         floor2tableData: [{
           className: 'wwwwwww',
-          date: '1111111111111',
+          date: '1111111111111'
         }],
         //第二层所在班级展示
         stuEventName: '',
-        ///////////////////////////////////////////以下为第一层formtool数据渲染/////////////////////////////////////////////////////////////////////////////////
+        floor4Show:false,
+        floor4ArletNum:'2',
+        ///////////////////////////////////////////以下为第一层formtool数据渲染///////////////////
+        ////////////////////////////////////////////////////////////////
         floorOneRender: [
-          //formtool传入数据格式：{type:'(01)',name:'输入提示',arr:[select/checkbox等选项],style:{样式},rule:{require:'true',message:'',}},
-          // 所属学校渲染
+          //formtool传入数据格式：{type:'(01)',name:'输入提示',arr:[select/checkbox等选项],style:{样式},ru
+          //le:{require:'true',message:'',}}, 所属学校渲染
           {
             type: "02",
             englishname: "schoolName",
             name: "所属学校：",
-            arr: ["青岛", "西安"],
+            arr: [
+              "青岛", "西安"
+            ],
             style: {
               labelWidth: "110px",
               labelPosition: "right",
@@ -120,7 +131,9 @@
             type: "02",
             englishname: "professionName",
             name: "所属专业：",
-            arr: ["前端", "大数据"],
+            arr: [
+              "前端", "大数据"
+            ],
             style: {
               labelWidth: "110px",
               labelPosition: "right",
@@ -137,10 +150,10 @@
           // 学员学号自动生成  后台生成？？前端自己写？？
           {
             type: "01",
-            name: "学员学号:",
+            name: "学员学号：",
             englishname: "stuId",
             style: {
-              labelWidth: "100px",
+              labelWidth: "110px",
               labelPosition: "right",
               width: "7"
             },
@@ -151,13 +164,12 @@
                 trigger: "blur"
               }]
             }
-          },
-          {
+          }, {
             type: "01",
-            name: "姓名:",
+            name: "姓名：",
             englishname: "stuName",
             style: {
-              labelWidth: "100px",
+              labelWidth: "110px",
               labelPosition: "right",
               width: "7"
             },
@@ -168,13 +180,12 @@
                 trigger: "blur"
               }]
             }
-          },
-          {
+          }, {
             type: "01",
-            name: "身份证:",
+            name: "身份证：",
             englishname: "stuIDCard",
             style: {
-              labelWidth: "100px",
+              labelWidth: "110px",
               labelPosition: "right",
               width: "7"
             },
@@ -185,12 +196,13 @@
                 trigger: "blur"
               }]
             }
-          },
-          {
+          }, {
             type: "02",
             englishname: "stuSex",
             name: "性别：",
-            arr: ["男", "女"],
+            arr: [
+              "男", "女"
+            ],
             style: {
               labelWidth: "110px",
               labelPosition: "right",
@@ -204,12 +216,13 @@
                 trigger: "blur"
               }]
             }
-          },
-          {
+          }, {
             type: "02",
             englishname: "stuQualification",
             name: "学历：",
-            arr: ["硕士及以上", "本科", "专科", "高职"],
+            arr: [
+              "硕士及以上", "本科", "专科", "高职"
+            ],
             style: {
               labelWidth: "110px",
               labelPosition: "right",
@@ -223,13 +236,12 @@
                 trigger: "change"
               }]
             }
-          },
-          {
+          }, {
             type: "01",
-            name: "毕业学校:",
+            name: "毕业学校：",
             englishname: "stuSelfSchoolName",
             style: {
-              labelWidth: "100px",
+              labelWidth: "110px",
               labelPosition: "right",
               width: "7"
             },
@@ -240,13 +252,12 @@
                 trigger: "blur"
               }]
             }
-          },
-          {
+          }, {
             type: "01",
-            name: "专业:",
+            name: "专业：",
             englishname: "stuSelfProfessionName",
             style: {
-              labelWidth: "100px",
+              labelWidth: "110px",
               labelPosition: "right",
               width: "7"
             },
@@ -257,13 +268,12 @@
                 trigger: "blur"
               }]
             }
-          },
-          {
+          }, {
             type: "01",
-            name: "手机:",
+            name: "手机：",
             englishname: "stuPhone",
             style: {
-              labelWidth: "100px",
+              labelWidth: "110px",
               labelPosition: "right",
               width: "7"
             },
@@ -274,13 +284,12 @@
                 trigger: "blur"
               }]
             }
-          },
-          {
+          }, {
             type: "01",
-            name: "邮箱:",
+            name: "邮箱：",
             englishname: "stuMail",
             style: {
-              labelWidth: "100px",
+              labelWidth: "110px",
               labelPosition: "right",
               width: "7"
             },
@@ -291,94 +300,45 @@
                 trigger: "blur"
               }]
             }
-          },
-        ],
-        ////////////////////////////////////////////////以下为第二层formtool渲染数据///////////////////////////////////////////////////////
-        floorTworenderbutton: {
-          type: "06",
-          name: "添加班级",
-          style: {
-            labelWidth: "110px",
-            labelPosition: "left",
-            width: "",
-            buttontype: "primary"
           }
-        },
-        floorTwoalertStyleaRender: {
-          // alertform需传入样式：头部padding（默认30px），内容宽度，弹出框总宽度
-          style: {
-            // selectWidth:'',
-            // width:'',
-            // paddingTop:''
-          },
-          alertRender: [{
-              type: "02",
-              englishname: "schoolName",
-              name: "选择学校：",
-              arr: ['西安', '青岛'],
-              style: {
-                labelWidth: "110px",
-                labelPosition: "right",
-                width: "7",
-                inLine: ""
-              }
-            },
-            {
-              type: "02",
-              englishname: "professionName",
-              name: "选择专业：",
-              arr: ["青岛", "西安"],
-              style: {
-                labelWidth: "110px",
-                labelPosition: "right",
-                width: "7",
-                inLine: ""
-              }
-            },
-            {
-              type: "02",
-              englishname: "className",
-              name: "选择班级：",
-              arr: ["前端1班", "前端2班"],
-              style: {
-                labelWidth: "110px",
-                labelPosition: "right",
-                width: "7",
-                inLine: ""
-              }
-            },
-            {
-              type: "06",
-              name: "添加",
-              style: {
-                labelWidth: "110px",
-                labelPosition: "left",
-                width: "",
-                buttontype: "primary",
-                buttonTwo: true,
-                buttonTwoMargenLeft: "30px"
-              }
-            }
-          ]
-        },
-        ////////////////////////////////////////////////以下为第四层formtool渲染数据//////////////////////////////////////////////////////
+        ],
+        ////////////////////////////////////////////////以下为第二层formtool渲染数据//////////////
+        // ///////////////////////////////////////// floorTworenderbutton: {   type:
+        // "06",   name: "添加班级",   style: {     labelWidth: "110px",     labelPosition:
+        // "left",     width: "",     buttontype: "primary"   } },
+        // //////////////////////////////////////////////以下为第四层formtool渲染数据//////////////
+        // ////////////////////////////////////////
         floor4render: {
           type: "02",
           englishname: "EventName",
-          name: "添加事件",
+          name: "添加事件：",
           style: {
-            labelWidth: "100px",
+            labelWidth: "110px",
             labelPosition: "right",
-            width: "",
+            width: ""
           },
-          arr: ['入学进班','扣除纪律分','旁听','休学', '复学', '留级', '毕业', '结业', '重读', '退学', '毕业资格无效']
-        },
+          arr: [
+            '入学进班',
+            '扣除纪律分',
+            '旁听',
+            '休学',
+            '复学',
+            '留级',
+            '毕业',
+            '结业',
+            '重读',
+            '退学',
+            '毕业资格无效'
+          ]
+        }
       };
     },
     components: {
       formtool,
       alertform,
-      alertThreePart
+      alertThreePart,
+      alertTwoPart,
+      alertFourPart,
     },
     computed: {},
     methods: {
@@ -394,22 +354,75 @@
       //点击添加班级后 alertform显示
       floorTwoClickShow: function() {
         this.floorTwoVShow = true;
-        console.log("156456");
       },
       //alertform中 取消 点击触发
       floorTwoClickCancel: function() {
         this.floorTwoVShow = false;
-        console.log("jignjing");
       },
       // alerform中 确定 点击触发
-      floorTwoClickSubmit: function(alertobj) {
+      floorTwoClickSubmit: function(obj) {
+        console.log(obj)
+        console.log(obj.classname)
         this.floorTwoVShow = false;
-        for (props in alertobj) {
-          this.newStuInformation[props] = alertobj[props];
-        }
+        
+        // for (key in obj) {
+        //   this.newStuInformation[key] = obj[key];
+        //   console.log(this.newStuInformation+"submittttttttttt3")
+        // }
         //  var d=new Date();
-        //  this.fullData=d.getFullYear()+'-'(d.getMonth()+1)+'-'+d.getDate()+d.getTime();
+        // this.fullData=d.getFullYear()+'-'(d.getMonth()+1)+'-'+d.getDate()+d.getTime();
+      },
+      floorFourClickShow(){
+        this.floor4Show = true;
+      },
+      floorFourClickCancel(){
+     this.floor4Show = false;
+      },
+      floorFourClickSubmit(obj){
+         console.log(obj)
+        this.floor4Show = false;
+      },
+     
+      floor4AlertEventNum(key,value){
+        switch(value.value){
+          case '入学进班':
+          this.floor4ArletNum=1;
+          break;
+          case '扣除纪律分':
+          this.floor4ArletNum=2;
+          break;
+          case '旁听':
+          this.floor4ArletNum=3;
+          break;
+           case '休学':
+          this.floor4ArletNum=4;
+          break;
+           case '复学':
+          this.floor4ArletNum=5;
+          break;
+           case '留级':
+          this.floor4ArletNum=6;
+          break;
+           case '毕业':
+          this.floor4ArletNum=7;
+          break;
+           case '结业':
+          this.floor4ArletNum=8;
+          break;
+          case '重读':
+          this.floor4ArletNum=9;
+          break;
+          
+          case '退学':
+          this.floor4ArletNum=10;
+          break;
+          
+          case '毕业资格无效':
+          this.floor4ArletNum=11;
+          break;
+        }
       }
+
     }
   };
 </script>
@@ -488,6 +501,11 @@
   .containerfloor2 {
     height: 230px;
   }
+  .floor2Button {
+    position: absolute;
+    left: 115px;
+    top: 65px;
+  }
   /* 以上为第二层样式/////////////////////////////////////////////////////////////////////////// */
   .floor3 {
     position: relative;
@@ -505,7 +523,7 @@
     height: 35px;
     border-radius: 6px;
     background-color: #0168b7;
-    line-height: 39px;
+    line-height: 35px;
     font-size: 14px;
     color: #fff;
     text-align: center;
@@ -537,13 +555,14 @@
     width: 480px;
     height: 310px;
     position: absolute;
-    left:130px;
-    top:55px;
+    left: 140px;
+    top: 55px;
+    border: 1px solid black;
+    background: #fff;
   }
-  .floor4AlertHeadSelect{
-    width:265px;
-   
-   
-
+  .floor4AlertHeadSelect {
+    margin-top: 10px;
+    width: 265px;
   }
+  
 </style>

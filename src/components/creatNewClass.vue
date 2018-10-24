@@ -8,7 +8,7 @@
                     <!-- 控制第一层输入框/选择框等宽度的容器 -->
                     <div class='widthCon'>
                         <!-- 循环自定义form，根据传入数据生成对应的input/select/checkbox/radio/datepicher/button -->
-                        <formtool v-for='(content,index) in floor1render' :item='content' :key='index'></formtool>
+                        <formtool v-for='(content,index) in floor1render' :item='content' :key='floor1+index'></formtool>
                     </div>
                 </div>
             </div>
@@ -17,7 +17,7 @@
                 <div class='container'>
                     <div class='widthCon'>
                         <!-- 循环自定义form，根据传入数据生成对应的input/select/checkbox/radio/datepicher/button -->
-                        <formtool></formtool>
+                        <formtool v-for='(content,index) in floor2render' :item='content' :key='floor2+index'></formtool>
                     </div>
                 </div>
             </div>
@@ -35,85 +35,112 @@
 </template>
 
 <script>
+    import {
+        isSelected,
+        isNormalText
+    } from "./mjjTools/reg.js";
     import formtool from './mjjTools/formtool'
     export default {
-        components:{
-        formtool,
+        components: {
+            formtool,
         },
-        name:'creatNewClass',
-        props:['item'],
+        name: 'creatNewClass',
+        props: ['item'],
         data() {
             return {
                 // 基本信息数据渲染
-                floor1render:[
+                floor1render: [
                     // 所属学校数据渲染
                     {
-            type: "02",
-            englishname: "schoolName",
-            name: "所属学校：",
-            arr: ["青岛", "西安"],
-            style: {
-              labelWidth: "110px",
-              labelPosition: "right",
-              width: "7",
-              inLine: ""
-            },
-           rules: {
-              rule: [
-                {
-                  required: true,
-                  message:'请选择所属学校',
-                  trigger: "blur"
-                }
-              ]
-            }
-          },
-        //   所属专业数据渲染
-                     {
-            type: "02",
-            englishname: "professionName",
-            name: "所属专业：",
-            arr: ["前端", "大数据"],
-            style: {
-              labelWidth: "110px",
-              labelPosition: "right",
-              width: "7"
-            },
-             rules: {
-              rule: [
-                {
-                  required: true,
-                  message:'请选择所属专业',
-                  trigger: "blur"
-                }
-              ]
-            }
-          },
+                        type: "02",
+                        englishname: "schoolName",
+                        name: "所属学校：",
+                        arr: ["青岛", "西安"],
+                        style: {
+                            labelWidth: "110px",
+                            labelPosition: "right",
+                            width: "7",
+                            inLine: ""
+                        },
+                        rules: {
+                            rule: [{
+                                required: true,
+                                message: '请选择所属学校',
+                                trigger: "change"
+                            }]
+                        }
+                    },
+                    //   所属专业数据渲染
+                    {
+                        type: "02",
+                        englishname: "professionName",
+                        name: "所属专业：",
+                        arr: ["前端", "大数据"],
+                        style: {
+                            labelWidth: "110px",
+                            labelPosition: "right",
+                            width: "7"
+                        },
+                        rules: {
+                            rule: [{
+                                required: true,
+                                message: '请选择所属专业',
+                                trigger: "change"
+                            }]
+                        }
+                    },
                 ],
                 // 第二层数据渲染
-                floor2render:[{
-            type: "01",
-            name: "班级名称:",
-            englishname: "stuId",
-            style: {
-              labelWidth: "100px",
-              labelPosition: "right",
-              width: "7"
-            },
-            // rules: {
-            //   rule: [
-            //     {
-            //       required: true,
-            //       validator: isMobil,
-            //       trigger: "blur"
-            //     }
-            //   ]
-            // }
-          }]
-               
+                floor2render: [
+                    // 班级名称
+                    {
+                    type: "01",
+                    name: "班级名称:",
+                    englishname: "className",
+                    inputPlaceholder: '中英文、数字，20个字符以内',
+                    style: {
+                        labelWidth: "100px",
+                        labelPosition: "right",
+                        width: "7"
+                    },
+                    rules: {
+                        rule: [{
+                            required: true,
+                            validator: isNormalText,
+                            trigger: "blur"
+                        }]
+                    }
+                },
+                // 班级编码
+                 {
+                    type: "01",
+                    name: "班级编码:",
+                    englishname: "classCode",
+                    inputPlaceholder: '系统生成班级编码，用户不可修改',
+                    style: {
+                        labelWidth: "100px",
+                        labelPosition: "right",
+                        width: "7"
+                    },
+                    rules: {
+                        rule: [{
+                            required: true,
+                        }]
+                    }
+                }, 
+                // 开课时间
+                {
+                    type: "5",
+                    name: "开课时间：",
+                    englishname: "stuEvent4StartDate",
+                    style: {
+                        labelWidth: "100px",
+                        labelPosition: "right",
+                        width: "7"
+                    },
+                }, ]
             }
         },
-        
     }
 </script>
 

@@ -1,8 +1,8 @@
 <template>
-    <div class='container root1 ' :style='{paddingTop:"30px", width:item.style.width ||"330px"}'>
+    <div class='root'>
         <!-- 内容宽度容器 -->
-        <div :style='{width:item.style.selectWidth || "292px"}'>
-            <formtool v-for='(content,index) in item.alertRender ' :key='index' :item='content' @cancel='canceled' @submited='submited' @keyValue='getKeyValue'></formtool>
+        <div class='container'>
+            <formtool v-for='(content,index) in alertRender ' :key='index' :item='content' @cancel='canceled' @submitSeconed='submitSeconed' @keyValue='getKeyValue'></formtool>
         </div>
     </div>
 </template>
@@ -11,13 +11,63 @@
     import formtool from './formtool'
     export default {
         name: 'alertform',
-        props: {item:{default:{style:'30px'}}},
+        // props: {item:{default:{style:'30px'}}},
         components: {
             formtool,
         },
         data() {
             return {
-                getKeyValues: {}
+                getKeyValues: {},
+          
+          alertRender: [{
+              type: "02",
+              englishname: "schoolName",
+              name: "选择学校：",
+              arr: ['西安', '青岛'],
+              style: {
+                labelWidth: "110px",
+                labelPosition: "right",
+                width: "7",
+                inLine: ""
+              }
+            },
+            {
+              type: "02",
+              englishname: "professionName",
+              name: "选择专业：",
+              arr: ["青岛", "西安"],
+              style: {
+                labelWidth: "110px",
+                labelPosition: "right",
+                width: "7",
+                inLine: ""
+              }
+            },
+            {
+              type: "02",
+              englishname: "className",
+              name: "选择班级：",
+              arr: ["前端1班", "前端2班"],
+              style: {
+                labelWidth: "110px",
+                labelPosition: "right",
+                width: "7",
+                inLine: ""
+              }
+            },
+            {
+              type: "06",
+              name: "添加",
+              style: {
+                labelWidth: "110px",
+                labelPosition: "left",
+                width: "",
+                buttontype: "primary",
+                buttonTwo: true,
+                buttonTwoMargenLeft: "30px"
+              }
+            }
+          ],
             }
         },
         methods: {
@@ -27,14 +77,21 @@
             canceled() {
                 this.$emit('canceled')
             },
-            submited() {
-                this.$emit('floorTwoClickHide', this.getKeyValues)
-                console.log('jingjing')
+            submitSeconed() {
+                this.$emit('submitThired', this.getKeyValues)    
             }
         },      
     }
 </script>
 
 <style scoped>
-
+.root{
+    padding-top:30px;
+    width:330px;
+    border:1px solid black;
+     height:245px;
+}
+.container{
+    width:292px;
+}
 </style>

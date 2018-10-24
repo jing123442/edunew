@@ -88,7 +88,8 @@
       },
       //确定按钮点击事件
       submitFirst: function() {
-        this.$emit("submitSecon");
+        this.$emit("submitSecond");
+        console.log('submitFirst')
        
       }
     }

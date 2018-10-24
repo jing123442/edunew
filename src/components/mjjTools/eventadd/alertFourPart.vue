@@ -2,7 +2,7 @@
     <div class='root' v-if='showNum==4||showNum==5'>
         <formtool v-for='(content,index) in stuEventName4' :item='content' :key='"stuEventName4"+index' @keyValue='getKeyValue' v-if='showNum==4'></formtool>
         <formtool v-for='(content,index) in stuEventName5' :item='content' :key='"stuEventName5"+index' @keyValue='getKeyValue' v-if='showNum==2'></formtool>
-        <formtool :item='button' @cancel='canceled' @submitSeconed='submitSeconed' class='buttonposition' ></formtool>
+        <formtool :item='button' @cancel='canceled' @submitSecond='submitSecond' class='buttonposition' ></formtool>
     </div>
 </template>
 
@@ -22,7 +22,7 @@
             canceled() {
                 this.$emit('canceled')
             },
-            submited() {
+            submitSecond() {
                 this.$emit('floorFourClickSubmit', this.getKeyValues)
             }
         },

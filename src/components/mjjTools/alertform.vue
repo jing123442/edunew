@@ -2,7 +2,7 @@
     <div class='root'>
         <!-- 内容宽度容器 -->
         <div class='container'>
-            <formtool v-for='(content,index) in alertRender ' :key='index' :item='content' @cancel='canceled' @submitSeconed='submitSeconed' @keyValue='getKeyValue'></formtool>
+            <formtool v-for='(content,index) in alertRender ' :key='index' :item='content' @cancel='canceled' @submitSecond='submitSecond' @keyValue='getKeyValue'></formtool>
         </div>
     </div>
 </template>
@@ -77,8 +77,9 @@
             canceled() {
                 this.$emit('canceled')
             },
-            submitSeconed() {
-                this.$emit('submitThired', this.getKeyValues)    
+            submitSecond() {
+                this.$emit('submitThird', this.getKeyValues)  
+                console.log('submitSecond',this.getKeyValues)  
             }
         },      
     }

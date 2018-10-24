@@ -10,7 +10,25 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      '/369manage':{
+        target:'http://123.58.241.146:8180',
+        changeOrigin:true,
+      },
+      '/369student':{
+        target:'http://123.58.241.146:8180',
+        changeOrigin:true
+      },
+      '/369research':{
+        target:'http://123.58.241.146:8180',
+        changeOrigin:true
+      },
+      '/369education':{
+        target:'http://123.58.241.146:8180',
+        changeOrigin:true
+      }
+  
+    },
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST

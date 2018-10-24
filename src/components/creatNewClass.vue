@@ -90,10 +90,8 @@
                         }
                     },
                 ],
-                // 第二层数据渲染
-                floor2render: [
-                    // 班级名称
-                    {
+                floor2render: [ // 第二层数据渲染
+                    {// 班级名称
                     type: "01",
                     name: "班级名称:",
                     englishname: "className",
@@ -111,8 +109,7 @@
                         }]
                     }
                 },
-                // 班级编码
-                 {
+                 {// 班级编码
                     type: "01",
                     name: "班级编码:",
                     englishname: "classCode",
@@ -127,18 +124,27 @@
                             required: true,
                         }]
                     }
-                }, 
-                // 开课时间
-                {
+                },  
+                {// 开课时间
                     type: "5",
                     name: "开课时间：",
-                    englishname: "stuEvent4StartDate",
+                    englishname: "",
                     style: {
                         labelWidth: "100px",
                         labelPosition: "right",
                         width: "7"
                     },
-                }, ]
+                },   {// 结课时间
+                    type: "5",
+                    name: "结课时间：",
+                    englishname: "",
+                    style: {
+                        labelWidth: "100px",
+                        labelPosition: "right",
+                        width: "7"
+                    },
+                }, 
+                ]
             }
         },
     }

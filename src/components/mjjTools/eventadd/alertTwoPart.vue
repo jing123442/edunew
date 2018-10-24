@@ -3,7 +3,7 @@
         <formtool :item='stuEventName3' @keyValue='getKeyValue' v-if='showNum==3'></formtool>
         <formtool :item='stuEventName1' @keyValue='getKeyValue' v-if='showNum==1'></formtool>
         <formtool :item='stuEventName11' @keyValue='getKeyValue' v-if='showNum==11'></formtool>
-        <formtool :item='button' @cancel='canceled' @submitSeconed='submitSeconed' class='buttonposition' ></formtool>
+        <formtool :item='button' @cancel='canceled' @submitSecond='submitSecond' class='buttonposition' ></formtool>
     </div>
 </template>
 
@@ -23,7 +23,7 @@
             canceled() {
                 this.$emit('canceled')
             },
-            submited() {
+            submitSecond() {
                 this.$emit('floorFourClickSubmit', this.getKeyValues)
             }
         },

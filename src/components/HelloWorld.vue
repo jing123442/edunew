@@ -18,10 +18,6 @@
         import ('./creatNewStudent')
     },
     mounted() {
-      console.log('ppppp')
-      this.$axios.get('/getallclass').then(function(res) {
-        console.log(res)
-      })
     }
   }
 </script>

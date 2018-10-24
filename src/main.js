@@ -7,7 +7,7 @@ import store from './store'
 import axios from 'axios'
 import qs from 'qs'
 import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-default/index.css'
+import 'element-ui/lib/theme-chalk/index.css'
 require('./assets/css/base.less')
 Vue.config.productionTip = false
 Vue.use(ElementUI)

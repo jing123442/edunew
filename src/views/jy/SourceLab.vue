@@ -52,6 +52,9 @@ export default {
 }
 </script>
 <style lang='less'>
+#jy{
+    // overflow: hidden;
+}
 .labman {
     &-menu {
         margin-top: 50px;

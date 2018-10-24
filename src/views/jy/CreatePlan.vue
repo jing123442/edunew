@@ -26,7 +26,7 @@
         </ul>
       </div>
       <div class="main">
-        <router-view></router-view>
+        <router-view @itemIndex="catalogueItem"></router-view>
       </div>
     </div>
   </div>
@@ -46,6 +46,7 @@ export default {
   },
   methods: {
     catalogueItem(index){
+      console.log("菜单栏index==",index);
       this.liItem = index;
       var path = {}
       if(index == 1){
@@ -135,7 +136,7 @@ export default {
     }
     .main{
       width: 780px;
-      height: 525px;
+      height: auto;
       border: 1px solid rgb(230, 240, 249);
     }
   }

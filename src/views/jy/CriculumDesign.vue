@@ -18,22 +18,22 @@
       </el-select>
       <span>名称：</span>
       <el-input v-model="searchContent" placeholder="请输入搜索内容" clearable></el-input>
-      <el-button type="primary">查询</el-button>
+      <el-button type="primary" @click="search">查询</el-button>
     </el-row>
     <p class="cuttingLine"></p>
     <div class="teachplan"> 
       <div class="createEvaluations" @click="designLink">
         <p>创建教案</p>
       </div>
-      <div class="courseware" v-for="item in 3" :key="item">
-        <img src="../../assets/images/u633.png" alt="缩略图">
-        <h3>课件标题</h3>
-        <ul class="issuename"><li>发布者：{牛立新}</li><li>状态：{草稿}</li></ul>
-        <p class="issueinfo">{视频简介-本课程以新闻APP为例，手把手教你用平台开发APP，包括项目介绍、界面开发与数据交互等。}</p>
+      <div class="courseware" v-for="item in coursewaremsg" :key="item.id">
+        <img :src="'http://123.58.241.223:9999/'+item.cover" alt="缩略图">
+        <h3>{{item.name}}</h3>
+        <ul class="issuename"><li>发布者：{{item.createUser}}</li><li>状态：{{item.checkstatedis}}</li></ul>
+        <p class="issueinfo" :title="item.intro">{{item.intro}}</p>
         <p class="issuebtn">
-          <el-button type="primary" size="small" v-if="item==1">编辑</el-button>
-          <el-button type="primary" size="small" v-if="item==1">删除</el-button>
-          <el-button type="primary" size="small" v-if="item==2">退回</el-button>
+          <el-button type="primary" size="small" v-if="item.checkstatedis=='草稿'" @click="compile(item.id)">编辑</el-button>
+          <el-button type="primary" size="small" v-if="item.checkstatedis=='草稿'" @click="del(item.id)">删除</el-button>
+          <el-button type="primary" size="small" v-if="item.checkstatedis=='待审核'">撤回</el-button>
         </p>
       </div>
     </div>
@@ -58,22 +58,78 @@ export default {
       btnstyle: false,
       publishers: ["胡文飞", "牛立新"],
       publisherValue: "",
+      searchContent:"",
       status: ["使用中", "审核通过", "未审核"],
       statusValue: "",
-      currentPage: 1
+      currentPage: 1,
+      coursewaremsg: [],
+      
     };
   },
+  created() {
+    //* 默认渲染列表
+    this.load()
+  },
   methods: {
+    //* 默认加载或删除后调用重新加载
+    load(){
+      this.$http.get('/369education/yzh/education/inter/getTeachPlanByCondition',{
+        params: {
+          pageNum: 1,
+          pageSize: 9
+        }
+      }).then(data=>{
+        console.log(data);
+        this.coursewaremsg = data.data.data.result;
+        console.log(this.coursewaremsg)
+      })
+    },
+    //* 三层菜单调用
     classifyinfo(val) {
       this.classifyid = val;
     },
     handleCurrentChange(val) {
       console.log(`当前页: ${val}`);
     },
+    //* 根据条件查询教案
+    search(){
+      console.log(this.classifyid);
+      //  this.$http.get('/369education/yzh/education/inter/delDirect',{
+      //     params: {
+      //       pageNum: 1,
+      //       pageSize:9,
+      //       classifyid: this.classifyid,
+
+      //     }
+      // }).then(data=>{
+    //     console.log(data);
+    //   })
+    },
+    //* 创建教案
     designLink() {
       this.$router.push({
         path: "/sourceLab/createplan"
       });
+    },
+    //* 编辑教案
+    compile(id){
+      sessionStorage.setItem("planId",id);
+      this.$router.push({
+        path: "/sourceLab/createplan/basicinfo"
+      });
+    },
+    //* 删除教案
+    del(id){
+      console.log(id);
+      this.$http.post('/369education/yzh/education/inter/delTeachPlan',
+        this.qs.stringify({
+          id: id
+          })
+        ).then(data=>{
+          console.log("删除后返回数据===",data);
+          //* 删除后渲染列表
+          this.load();
+        })
     }
   },
   components: {
@@ -149,9 +205,11 @@ export default {
     cursor: pointer;
   }
   .courseware {
+    box-shadow: 0 0 3px 0 #ddd;
     img {
       width: 210px;
       height: 120px;
+      display: block;
     }
     p {
       margin: 0 4px;
@@ -168,7 +226,7 @@ export default {
       overflow: hidden;
     }
     .issuebtn {
-      margin-top: 15px;
+      margin-top: 7px;
       display: flex;
       justify-content: space-around;
     }
@@ -176,7 +234,7 @@ export default {
 }
 .block {
   width: 500px;
-  margin: 0 auto;
+  margin: 20px auto 0;
 }
 </style>
 

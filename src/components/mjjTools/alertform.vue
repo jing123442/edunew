@@ -1,7 +1,7 @@
 <template>
-    <div class='container root1 ' :style='{paddingTop:item.style.paddingTop ||"30px", width:item.style.width ||"330px"}'>
+    <div class='container root1 ' :style='{paddingTop:"30px", width:item.style.width ||"330px"}'>
         <!-- 内容宽度容器 -->
-        <div class='Widthcon' :style='{width:item.style.selectWidth || "292px"}'>
+        <div :style='{width:item.style.selectWidth || "292px"}'>
             <formtool v-for='(content,index) in item.alertRender ' :key='index' :item='content' @cancel='canceled' @submited='submited' @keyValue='getKeyValue'></formtool>
         </div>
     </div>
@@ -11,7 +11,7 @@
     import formtool from './formtool'
     export default {
         name: 'alertform',
-        props: ['item'],
+        props: {item:{default:{style:'30px'}}},
         components: {
             formtool,
         },
@@ -31,7 +31,11 @@
                 this.$emit('floorTwoClickHide', this.getKeyValues)
                 console.log('jingjing')
             }
+<<<<<<< HEAD
         },
+=======
+        },      
+>>>>>>> 12d5ea024a907cad0782bd87976ace45b7181214
     }
 </script>
 

@@ -17,25 +17,21 @@
         },
         data() {
             return {
-                getKeyValues:{}
+                getKeyValues: {}
             }
         },
         methods: {
-             getKeyValue: function(key, value) {
-          this.getKeyValues[key] = value.value;
-         
-      
-      },
-            
+            getKeyValue: function(key, value) {
+                this.getKeyValues[key] = value.value;
+            },
             canceled() {
                 this.$emit('canceled')
             },
             submited() {
-            this.$emit('floorTwoClickHide',this.getKeyValues)
-            console.log('jingjing')
-        }
+                this.$emit('floorTwoClickHide', this.getKeyValues)
+                console.log('jingjing')
+            }
         },
-        
     }
 </script>
 

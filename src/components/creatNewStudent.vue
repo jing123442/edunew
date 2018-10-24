@@ -360,8 +360,6 @@
       formtool,
       alertform
     },
-    computed: {},
-    mounted: {},
     methods: {
       // 一层所有信息获取，对象形式存入newStuInformation中
       getKeyValue: function(key, value) {

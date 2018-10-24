@@ -1,12 +1,36 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>y</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
-  </body>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>y</title>
+  <script>
+    var deviceWidth = window.screen.availWidth;
+    var remSize =100;
+    document.getElementsByTagName('html')[0].style.fontSize = remSize + 'px';
+  </script>
+  <style>
+    * {
+      margin: 0;
+      border: 0;
+      padding: 0;
+
+    }
+
+    .clear:after {
+      display: block;
+      clear: both;
+      content: "";
+      visibility: hidden;
+      height: 0
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app"></div>
+  <!-- built files will be auto injected -->
+</body>
+
 </html>

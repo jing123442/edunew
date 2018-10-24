@@ -380,10 +380,7 @@
       alertform,
       alertThreePart
     },
-<<<<<<< HEAD
-=======
     computed: {},
->>>>>>> 12d5ea024a907cad0782bd87976ace45b7181214
     methods: {
       // 一层所有信息获取，对象形式存入newStuInformation中
       getKeyValue: function(key, value) {

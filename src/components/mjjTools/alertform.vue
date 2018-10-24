@@ -31,11 +31,7 @@
                 this.$emit('floorTwoClickHide', this.getKeyValues)
                 console.log('jingjing')
             }
-<<<<<<< HEAD
-        },
-=======
         },      
->>>>>>> 12d5ea024a907cad0782bd87976ace45b7181214
     }
 </script>
 

@@ -8,7 +8,7 @@
             <el-button type="primary" class='addTableRow' @click='toAddStu'>新增学员</el-button>
         </div>
         <div class='tableBox'>
-            <MyTable :tableData='tableData' :theads='theads' sureButton='重置密码' cancelButton='转发' @reset='reset' @change='change'></MyTable>
+            <MyTable :tableData='tableData' :theads='theads' sureButton='重置密码' cancelButton='修改' @reset='reset' @change='change'></MyTable>
         </div>
     </div>
 </template>
@@ -32,7 +32,6 @@
                     schoolName: '学校名称',
                     tel: "联系电话",
                     state: "学籍状态"
-
                 },
                 tableData: [{ //表格的数据，对应表头数据结构
                     stuCode: '学员1',
@@ -43,7 +42,7 @@
                     schoolName: '学校名称',
                     tel: "联系电话",
                     state: "学籍状态",
-                    buttonstate:0
+                    buttonstate: 0
                 }, {
                     stuCode: '学员2',
                     stuName: '学员姓名',
@@ -53,7 +52,7 @@
                     schoolName: '学校名称',
                     tel: "联系电话",
                     state: "学籍状态",
-                    buttonstate:1
+                    buttonstate: 1
                 }, {
                     stuCode: '学员学号',
                     stuName: '学员姓名',
@@ -63,7 +62,7 @@
                     schoolName: '学校名称',
                     tel: "联系电话",
                     state: "学籍状态",
-                    buttonstate:2
+                    buttonstate: 2
                 }],
                 formItems: [{ //表单结构
                     label: '所属学校', //标签名
@@ -139,8 +138,8 @@
                 console.log(data, bool)
             },
             toAddStu() {
-                 this.$router.push({
-                    path:'/newStudent'
+                this.$router.push({
+                    path: '/newStudent'
                 });
             },
             reset(item, index) {
@@ -149,13 +148,15 @@
                 this.$msgbox({
                     title: '提示',
                     message: h('p', null, [
-                        h('span', null, '确定要为选中的学生重置密码吗 '),
                         h('i', {
-                            style: 'color: rgba(240, 151, 56, 1)'
-                        })
+                            class: 'el-icon-warning',
+                            style: 'color: rgba(240, 151, 56, 1);font-size:30px;vertical-align:middle;margin-right:10px;'
+                        }),
+                        h('span', null, '确定要为选中的学生重置密码吗 ')
                     ]),
                     showCancelButton: true,
-                    confirmButtonText: '确定',
+                    confirmButtonText: '重置',
+                    confirmButtonClass: 'confirmResetButton',
                     cancelButtonText: '取消',
                     beforeClose: (action, instance, done) => {
                         if (action === 'confirm') {
@@ -179,10 +180,36 @@
                 });
             },
             change(item, index) {}
+        },
+        beforeMount() {
+            var that = this;
+            this.$axios.get('/yzh/research/inter/getAllStuManagement').then(function(res) { //获取全部学员数据
+                if (res.data && res.data.stuManagementList) {
+                    var list = res.data.stuManagementList;
+                    that.tableData = list.map(function(item, index) {
+                        return {
+                            stuCode: item.stuCode,
+                            stuName: item.stuTrueName,
+                            sex: item.stuSex == 'F' ? '男' : "女",
+                            className: item.className,
+                            profName: item.professionName,
+                            schoolName: item.schoolName,
+                            tel: item.stuPhone,
+                            state: item.managementState,
+                            buttonstate: 2
+                        }
+                    })
+                }
+            })
         }
     }
 </script>
 <style lang='scss'>
+    .confirmResetButton {
+        background: rgba(240, 151, 56, 1);
+        border: 1px solid rgba(240, 151, 56, 1);
+        ;
+    }
     .StuManagement {
         // 表单的样式
         .formBox {

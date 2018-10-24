@@ -1,3 +1,4 @@
+var Mock = require('mockjs');
 export var getAllClass = { //获取所有班级
 
     "classList|1-10": [
@@ -151,11 +152,13 @@ export var addStuManagement = { //3.18	增加学籍
     addStManagementFlag: 'success'
 }
 export var getAllStuManagement = { //
-    stuManagementList: [
+    "stuManagementList|5-9": [
         {
-            stuId: 'i7yiou8y897y9p8yp9898y',
-            stuCode: 'QD0807856',
-            stuTrueName: '测试学员',
+            "stuId|30": /[0-9a-z]/,
+            'stuCode': 'QD0807856',
+            stuTrueName: function(){
+                return Mock.Random.cname()
+            },
             stuSex: 'F',
             className: '测试一班',
             professionName: '移动互联产品研发',
@@ -170,7 +173,9 @@ export var getStuManagementByCondition = { //3.20	按条件查询学籍
         {
             stuId: '6r6d865e6rd5uw57d6e7t',
             stuCode: 'QD076214',
-            stuTrueName: '测试学员',
+            stuTrueName:  function(){
+                return Mock.Random.cname()
+            },
             stuSex: 'F',
             className: '测试一班',
             professionName: '移动互联产品研发',
@@ -184,11 +189,13 @@ export var updateStuManagement = {
     updateStuManagementFlag: 'success'
 }
 export var getStuManagementByStuId = {
-    stuManagementQB: [
+    'stuManagementQB': [
         {
             stuId: '1i4i2u34io2i4iu5u',
             stuCode: 'QD52534343',
-            stuTrueName: '学员秦晓健',
+            stuTrueName:  function(){
+                return Mock.Random.cname()
+            },
             stuSex: '',
             professionName: '',
             schoolName: '',

@@ -16,7 +16,6 @@
 <script>
     import MyForm from './stuAndClassManage/MyForm'
     import MyTable from './stuAndClassManage/MyTable.vue';
-    import bus from './stuAndClassManage/bus.js'
     export default {
         components: {
             MyForm,
@@ -33,6 +32,7 @@
                     schoolName: '学校名称',
                     tel: "联系电话",
                     state: "学籍状态"
+
                 },
                 tableData: [{ //表格的数据，对应表头数据结构
                     stuCode: '学员1',
@@ -42,7 +42,8 @@
                     profName: '专业名称',
                     schoolName: '学校名称',
                     tel: "联系电话",
-                    state: "学籍状态"
+                    state: "学籍状态",
+                    buttonstate:0
                 }, {
                     stuCode: '学员2',
                     stuName: '学员姓名',
@@ -51,7 +52,8 @@
                     profName: '专业名称',
                     schoolName: '学校名称',
                     tel: "联系电话",
-                    state: "学籍状态"
+                    state: "学籍状态",
+                    buttonstate:1
                 }, {
                     stuCode: '学员学号',
                     stuName: '学员姓名',
@@ -60,7 +62,8 @@
                     profName: '专业名称',
                     schoolName: '学校名称',
                     tel: "联系电话",
-                    state: "学籍状态"
+                    state: "学籍状态",
+                    buttonstate:2
                 }],
                 formItems: [{ //表单结构
                     label: '所属学校', //标签名
@@ -135,7 +138,11 @@
             submitForm(data, bool) {
                 console.log(data, bool)
             },
-            toAddStu() {},
+            toAddStu() {
+                 this.$router.push({
+                    path:'/newStudent'
+                });
+            },
             reset(item, index) {
                 const h = this.$createElement;
                 var that = this;
@@ -179,22 +186,22 @@
     .StuManagement {
         // 表单的样式
         .formBox {
-            width: 12rem;
-            margin-left: 0.3rem;
+            width: 1200px;
+            margin-left: 30px;
         } // 新增按钮的
         .addTableRowBox {
             position: relative;
-            height: 0.55rem;
-            margin-left: 0.3rem;
+            height: 55px;
+            margin-left: 30px;
             .addTableRow {
                 position: absolute;
                 top: 0;
-                padding: 0.1rem 0.1rem;
+                padding: 10px;
             }
         } // 表格的样式
         .tableBox {
-            width: 11rem;
-            margin-left: 0.3rem;
+            width: 1100px;
+            margin-left: 30px;
         }
     }
 </style>

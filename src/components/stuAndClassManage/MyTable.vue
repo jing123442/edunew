@@ -7,8 +7,8 @@
             </el-table-column>
             <el-table-column label="操作" width="200">
                 <template slot-scope="scope">
-                                            <el-button type="primary" plain  @click='reSet(scope)'>{{sureButton}}</el-button>
-                                            <el-button type="primary" plain @click='change(scope)'>{{cancelButton}}</el-button>
+                        <el-button type="primary" plain  @click='reSet(scope)'>{{sureButton}}</el-button>
+                        <el-button type="primary" plain @click='change(scope)'>{{cancelButton}}</el-button>
 </template>
             </el-table-column>
         </el-table>
@@ -67,7 +67,7 @@
             }
             tr,
             th {
-                height: 0.36rem;
+                height: 36px;
                 text-align: center;
                 .cell {
                     text-align: center;
@@ -77,8 +77,8 @@
                 box-sizing: border-box;
             }
             .el-button {
-                height: 0.25rem;
-                padding: 0 0.1rem;
+                height: 25px;
+                padding: 0 10px;
             }
         }
     }

@@ -3,7 +3,7 @@
         <el-form :model="formData" status-icon :rules="rules" ref="ruleForm2" label-width="100px" class="demo-ruleForm" v-if='show'>
             <!-- 这里的prop='pass',则调用rules2.pass.validator的校验规则 -->
             <!-- input或select部分 -->
-            <el-form-item label-width='0.75rem' :label="item.label" :prop="item.code" v-for='(item,index) in initFormData' :key='index' v-if='item.type!="checkbox"&&item.type!="radio"&&item.type!="checkbox"&&item.type!="radio"&&item.type!="myTimePicker"' class='myInputSelect'>
+            <el-form-item label-width='75px' :label="item.label" :prop="item.code" v-for='(item,index) in initFormData' :key='index' v-if='item.type!="checkbox"&&item.type!="radio"&&item.type!="checkbox"&&item.type!="radio"&&item.type!="myTimePicker"' class='myInputSelect'>
                 <el-input :type="item.type||'text'" v-model="formData[item.code]" autocomplete="off" v-if='item.option.length==0'></el-input>
                 <el-select v-model="formData[item.code]" placeholder="请选择" v-else>
                     <el-option v-for="(val,key) in item.option" :key="key" :value="val">
@@ -11,12 +11,12 @@
                 </el-select>
             </el-form-item>
             <!-- checkbox与radio部分 -->
-            <el-form-item label-width='0.75rem' class='myCheckboxRadio' :label="item.label" :prop="item.code" v-for='(item,index) in initFormData' :key='index+"cr"' v-if='item.type=="checkbox"||item.type=="radio"'>
+            <el-form-item label-width='75px' class='myCheckboxRadio' :label="item.label" :prop="item.code" v-for='(item,index) in initFormData' :key='index+"cr"' v-if='item.type=="checkbox"||item.type=="radio"'>
                 <el-checkbox v-model="formData[item.code]" :label='val' v-for='(val,key) in item.option' :key='"checkbox"+key' v-if='item.type=="checkbox"'>{{val}}</el-checkbox>
                 <el-radio v-model="formData[item.code]" :label='v' v-for='(v,k) in item.option' :key='"radio"+k' v-if='item.type=="radio"'>{{v}}</el-radio>
             </el-form-item>
             <!-- 时间选择器部分 -->
-            <el-form-item label-width='0.75rem' class='myTimePicker' :class='["myTimePicker"+(index-initFormData.length+2)]' v-if='item.type=="myTimePicker"' :label="item.label" :prop="item.code" v-for='(item,index) in initFormData' :key='index+"time"'>
+            <el-form-item label-width='75px' class='myTimePicker' :class='["myTimePicker"+(index-initFormData.length+2)]' v-if='item.type=="myTimePicker"' :label="item.label" :prop="item.code" v-for='(item,index) in initFormData' :key='index+"time"'>
                 <el-date-picker v-model="formData[item.code]" type="date" placeholder="请选择日期" align="right" :picker-options="pickerOptions1">
                 </el-date-picker>
             </el-form-item>
@@ -29,84 +29,83 @@
 </template>
 <style lang='scss'>
     .whFormComponents {
-        margin: 0.1rem 0 0.2rem 0;
-        padding-bottom:0.1rem;
+        margin: 10px 0 20px 0;
+        padding-bottom:10px;
         border-bottom: 1px solid #ccc;
         .el-form-item.myInputSelect,
         .el-form-item.myButton {
-            margin-right:0.2rem;
-            margin-bottom: 0.1rem;
-            width: 2.5rem;
-            height: 0.35rem;
+            margin-right:20px;
+            margin-bottom: 10px;
+            width: 250px;
+            height: 35px;
             float: left;
             box-sizing: border-box;
             label {
                 text-align: left;
-                width: 3.5rem;
-                line-height: 0.35rem;
+                width: 350px;
+                line-height: 35px;
                 padding: 0;
             }
             .el-form-item__content {
-                margin-left: 3.5rem;
+                margin-left: 350px;
                 margin-bottom: 0;
-                height: 0.35rem;
-                line-height: 0.35rem;
+                height: 35px;
+                line-height: 35px;
                 .el-select,
                 .el-input,
                 .el-input__inner,
                 .el-button,
                 span {
-                    height: 0.35rem;
-                    line-height: 0.35rem;
+                    height: 35px;
+                    line-height: 35px;
                 }
                 .el-button {
-                    padding: 0 0.2rem;
-                    margin-left:0.2rem;
+                    padding: 0 20px;
                 }
             }
         }
         .myCheckboxRadio {
             width: 100%;
             float: left;
-            margin-bottom: 0.1rem;
+            margin-bottom: 10px;
             label {
                 text-align: left;
                 padding: 0;
             }
         }
         .myTimePicker {
-            width: 2.5rem;
-            height: 0.35rem;
+            width: 250px;
+            height: 35px;
             float: left;
             box-sizing: border-box;
-            margin-bottom: 0.1rem;
+            margin-bottom: 10px;
             .el-form-item__label {
                 text-align: left;
-                width: 3.5rem;
-                line-height: 0.35rem;
+                width: 350px;
+                line-height: 35px;
                 padding: 0;
             }
             .el-form-item__content {
-                margin-left: 3.5rem;
-                height: 0.35rem;
-                line-height: 0.35rem;
+                margin-left: 350px;
+                height: 35px;
+                line-height: 35px;
                 .el-date-editor {
-                    height: 0.35rem;
+                    height: 35px;
                     width: 100%;
                     input {
                         width: 100%;
-                        line-height: 0.35rem;
+                        line-height: 35px;
                         height: 100%;
                     }
                 }
             }
         }
         .myTimePicker1 {
-           
+           margin-right:20px;
             .el-form-item__label {
                 text-align: center;
-                width: 3.5rem;
-                line-height: 0.35rem;
+                width: 350px;
+                line-height:35px;
                 padding: 0;
             }
         }

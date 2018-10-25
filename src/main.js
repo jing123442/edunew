@@ -15,7 +15,7 @@ Vue.prototype.$axios = axios;
 
 if (process.env.NODE_ENV == 'development') { //拦截请求模拟数据
   var Mock = require('mockjs');
-  var dataroutes = require('./components/stuAndClassManage/getAllClass.js');
+  var dataroutes = require('./components/mjjTools/getAllClass.js');
   let modules = Object.keys(dataroutes); //获取全部路由
   let routes = Object
     .keys(dataroutes)

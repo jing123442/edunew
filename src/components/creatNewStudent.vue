@@ -404,6 +404,7 @@
         for (var key in obj) {
           this.newStuInformation[key] = obj[key];
         }
+        floor2tableData.date=new Date().getFullYear()+'-'+(new Date().getMonth()+1)+'-'+new Date().getDate()+' '+new Date().getHours()+':'+new Date().getMinutes()+':'+new Date().getSeconds()
         //  var d=new Date();
         // this.fullData=d.getFullYear()+'-'(d.getMonth()+1)+'-'+d.getDate()+d.getTime();
       },

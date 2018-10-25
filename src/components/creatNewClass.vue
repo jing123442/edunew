@@ -8,16 +8,16 @@
                     <!-- 控制第一层输入框/选择框等宽度的容器 -->
                     <div class='widthCon'>
                         <!-- 循环自定义form，根据传入数据生成对应的input/select/checkbox/radio/datepicher/button -->
-                        <formtool v-for='(content,index) in floor1render' :item='content' :key='floor1+index'></formtool>
+                        <formtool v-for='(content,index) in floor1render' :item='content' :key='"floor1"+index'></formtool>
                     </div>
                 </div>
             </div>
-            <div class='floor floor2 clear'>
+            <div class='floor floor2 '>
                 <div class='floortitle'>班级信息</div>
                 <div class='container'>
                     <div class='widthCon'>
                         <!-- 循环自定义form，根据传入数据生成对应的input/select/checkbox/radio/datepicher/button -->
-                        <formtool v-for='(content,index) in floor2render' :item='content' :key='floor2+index'></formtool>
+                        <formtool v-for='(content,index) in floor2render' :item='content' :key='"floor2"+index'></formtool>
                     </div>
                 </div>
             </div>
@@ -26,7 +26,7 @@
                 <div class='container'>
                     <div class='widthCon'>
                         <!-- 循环自定义form，根据传入数据生成对应的input/select/checkbox/radio/datepicher/button -->
-                        <formtool></formtool>
+                        <formtool v-for='(content,index) in floor3render' :item='content' :key='"floor3"+index'></formtool>
                     </div>
                 </div>
             </div>
@@ -49,33 +49,101 @@
         data() {
             return {
                 // 基本信息数据渲染
-                floor1render: [
-                    // 所属学校数据渲染
-                    {
-                        type: "02",
-                        englishname: "schoolName",
-                        name: "所属学校：",
-                        arr: ["青岛", "西安"],
+                floor1render: [{ // 所属学校数据渲染
+                    type: "02",
+                    englishname: "schoolName",
+                    name: "所属学校：",
+                    arr: ["青岛", "西安"],
+                    style: {
+                        labelWidth: "110px",
+                        labelPosition: "right",
+                        width: "7",
+                        inLine: ""
+                    },
+                    rules: {
+                        rule: [{
+                            required: true,
+                            message: '请选择所属学校',
+                            trigger: "change"
+                        }]
+                    }
+                }, { //所属专业数据渲染
+                    type: "02",
+                    englishname: "professionName",
+                    name: "所属专业：",
+                    arr: ["前端", "大数据"],
+                    style: {
+                        labelWidth: "110px",
+                        labelPosition: "right",
+                        width: "7"
+                    },
+                    rules: {
+                        rule: [{
+                            required: true,
+                            message: '请选择所属专业',
+                            trigger: "change"
+                        }]
+                    }
+                }],
+                floor2render: [ // 第二层数据渲染
+                    { // 班级名称
+                        type: "01",
+                        name: "班级名称:",
+                        englishname: "className",
+                        inputPlaceholder: '中英文、数字，20个字符以内',
                         style: {
-                            labelWidth: "110px",
+                            labelWidth: "100px",
                             labelPosition: "right",
-                            width: "7",
-                            inLine: ""
+                            width: "7"
                         },
                         rules: {
                             rule: [{
                                 required: true,
-                                message: '请选择所属学校',
-                                trigger: "change"
+                                validator: isNormalText,
+                                trigger: "blur"
                             }]
                         }
-                    },
-                    //   所属专业数据渲染
-                    {
+                    }, { // 班级编码
+                        type: "01",
+                        name: "班级编码:",
+                        englishname: "classCode",
+                        inputPlaceholder: '系统生成班级编码，用户不可修改',
+                        style: {
+                            labelWidth: "100px",
+                            labelPosition: "right",
+                            width: "7"
+                        },
+                        rules: {
+                            rule: [{
+                                required: true,
+                            }]
+                        }
+                    }, { // 开课时间
+                        type: "5",
+                        name: "开课时间：",
+                        englishname: "",
+                        style: {
+                            labelWidth: "100px",
+                            labelPosition: "right",
+                            width: 24
+                        }
+                    }, { // 结课时间
+                        type: "5",
+                        name: "结课时间：",
+                        englishname: "",
+                        style: {
+                            labelWidth: "100px",
+                            labelPosition: "right",
+                            width: 24
+                        }
+                    }
+                ],
+                floor3render: [ //第三层数据渲染
+                    { //架构师渲染
                         type: "02",
-                        englishname: "professionName",
-                        name: "所属专业：",
-                        arr: ["前端", "大数据"],
+                        englishname: "teacherOne",
+                        name: "架构师：",
+                        arr: ["胡文飞", "牛立新"],
                         style: {
                             labelWidth: "110px",
                             labelPosition: "right",
@@ -84,66 +152,62 @@
                         rules: {
                             rule: [{
                                 required: true,
-                                message: '请选择所属专业',
+                                message: '请选择架构师',
                                 trigger: "change"
                             }]
                         }
+                    },{ //项目经理渲染
+                        type: "02",
+                        englishname: "teacherTwo",
+                        name: "项目经理：",
+                        arr: ["胡文飞", "牛立新"],
+                        style: {
+                            labelWidth: "110px",
+                            labelPosition: "right",
+                            width: "7"
+                        },
+                        rules: {
+                            rule: [{
+                                required: false,
+                                message: '请选择架构师',
+                               trigger: "change"
+                            }]
+                        }
+                    },{ //项目经理渲染
+                        type: "02",
+                        englishname: "teacherTwo",
+                        name: "选择教案：",
+                        arr: ["前端实训", "大数据实训"],
+                        style: {
+                            labelWidth: "110px",
+                            labelPosition: "right",
+                            width: ""
+                        },
+                        rules: {
+                            rule: [{
+                                required: true,
+                                message: '请选择教案',
+                               trigger: "change"
+                            }]
+                        }
+                    },{ //项目经理渲染
+                        type: "02",
+                        englishname: "teacherTwo",
+                        name: "选择评测：",
+                        arr: ["前端实训", "大数据实训"],
+                        style: {
+                            labelWidth: "110px",
+                            labelPosition: "right",
+                            width: ""
+                        },
+                        rules: {
+                            rule: [{
+                                required: true,
+                                message: '请选择评测',
+                               trigger: "change"
+                            }]
+                        }
                     },
-                ],
-                floor2render: [ // 第二层数据渲染
-                    {// 班级名称
-                    type: "01",
-                    name: "班级名称:",
-                    englishname: "className",
-                    inputPlaceholder: '中英文、数字，20个字符以内',
-                    style: {
-                        labelWidth: "100px",
-                        labelPosition: "right",
-                        width: "7"
-                    },
-                    rules: {
-                        rule: [{
-                            required: true,
-                            validator: isNormalText,
-                            trigger: "blur"
-                        }]
-                    }
-                },
-                 {// 班级编码
-                    type: "01",
-                    name: "班级编码:",
-                    englishname: "classCode",
-                    inputPlaceholder: '系统生成班级编码，用户不可修改',
-                    style: {
-                        labelWidth: "100px",
-                        labelPosition: "right",
-                        width: "7"
-                    },
-                    rules: {
-                        rule: [{
-                            required: true,
-                        }]
-                    }
-                },  
-                {// 开课时间
-                    type: "5",
-                    name: "开课时间：",
-                    englishname: "",
-                    style: {
-                        labelWidth: "100px",
-                        labelPosition: "right",
-                        width: "7"
-                    },
-                },   {// 结课时间
-                    type: "5",
-                    name: "结课时间：",
-                    englishname: "",
-                    style: {
-                        labelWidth: "100px",
-                        labelPosition: "right",
-                        width: "7"
-                    },
-                }, 
                 ]
             }
         },

@@ -3,7 +3,7 @@
         <formtool :item='stuEventName3' @keyValue='getKeyValue' v-if='showNum==3'></formtool>
         <formtool :item='stuEventName1' @keyValue='getKeyValue' v-if='showNum==1'></formtool>
         <formtool :item='stuEventName11' @keyValue='getKeyValue' v-if='showNum==11'></formtool>
-        <formtool :item='button' @cancel='canceled' @submitSecond='submitSecond' class='buttonposition' ></formtool>
+        <formtool :item='button' @cancel='canceled' @submitSecond='submitSecond' class='buttonposition'></formtool>
     </div>
 </template>
 
@@ -12,23 +12,26 @@
     export default {
         name: 'alertTwoPart',
         props: ['showNum'],
-        getKeyValues: {},
+        
         components: {
             formtool,
         },
         methods: {
             getKeyValue: function(key, value) {
+                console.log('///////////////////', this.getKeyValues, key, value);
                 this.getKeyValues[key] = value.value;
             },
             canceled() {
                 this.$emit('canceled')
             },
             submitSecond() {
-                this.$emit('floorFourClickSubmit', this.getKeyValues)
+                this.$emit('submitThird', this.getKeyValues)
+                console.log('jingjingjingjignjing123445', this.getKeyValues)
             }
         },
         data() {
             return {
+                getKeyValues: {},
                 stuEventName: '3',
                 // 入学事件渲染
                 stuEventName1: {
@@ -92,8 +95,8 @@
         height: 250px;
         width: 450px;
     }
-    .buttonposition{
+    .buttonposition {
         position: absolute;
-         top:260px;
+        top: 260px;
     }
 </style>

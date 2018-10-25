@@ -26,14 +26,14 @@
                 this.$emit('canceled')
             },
             submitSecond() {
-                this.$emit('floorFourClickSubmit', this.getKeyValues)
+                this.$emit('submitThird', this.getKeyValues)
                 
             }
         },
         data() {
             return {
                 //外部传入2，6，7，8，9，10 时分别渲染相应模块
-                stuEventName: '9',
+               
                 getKeyValues: {},
                 // 扣除纪律分渲染
                 stuEventName2: [{

@@ -2,7 +2,7 @@
   <div class='mjjformtool'>
     <el-form v-if='mounting' ref="form" :model="form" :label-width="item.style.labelWidth||'100px'" :rules='rules2' :label-position='item.style.labelPosition || right' :inline='item.style.inLine||false'>
       <el-form-item :label="item.name" v-if='item.type==1' prop='rule'>
-        <el-input v-model="form.value" @submit.native.prevent @input='blured' :type='item.inputType || "text"' :placeholder="item.inputPlaceholder || ''"></el-input>
+        <el-input v-model="form.value" @input='blured' :type='item.inputType || "text"' :placeholder="item.inputPlaceholder || ''"></el-input>
       </el-form-item>
       <!-- input -->
       <el-form-item :label="item.name" v-if='item.type==2' prop='rule'>
@@ -41,19 +41,11 @@
   export default {
     name: "formtool",
     props: ["item"],
-    watch: {
-      form: {
-        handler(newValue, oldValue) {
-          console.log(newValue);
-        },
-        deep: true
-      },
-      item() {}
-    },
     beforeMount() {},
     mounted() {
       var that = this;
       if (typeof this.item.rules == 'object') {
+        console.log('item', this.item);
         this.rules2 = Object.assign({}, this.item.rules);
         for (var i = 0; i < this.rules2.rule.length; i++) {
           if (this.rules2.rule[i].validator) {
@@ -90,7 +82,6 @@
       submitFirst: function() {
         this.$emit("submitSecond");
         console.log('submitFirst')
-       
       }
     }
   };

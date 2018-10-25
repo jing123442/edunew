@@ -8,7 +8,7 @@
                     <!-- 控制第一层输入框/选择框等宽度的容器 -->
                     <div class='widthCon'>
                         <!-- 循环自定义form，根据传入数据生成对应的input/select/checkbox/radio/datepicher/button -->
-                        <formtool v-for='(content,index) in floor1render' :item='content' :key='"floor1"+index'></formtool>
+                        <formtool v-for='(content,index) in floor1render' :item='content' :key='"floor1"+index' @keyValue='getKeyValue'></formtool>
                     </div>
                 </div>
             </div>
@@ -17,7 +17,7 @@
                 <div class='container'>
                     <div class='widthCon'>
                         <!-- 循环自定义form，根据传入数据生成对应的input/select/checkbox/radio/datepicher/button -->
-                        <formtool v-for='(content,index) in floor2render' :item='content' :key='"floor2"+index'></formtool>
+                        <formtool v-for='(content,index) in floor2render' :item='content' :key='"floor2"+index' @keyValue='getKeyValue'></formtool>
                     </div>
                 </div>
             </div>
@@ -26,7 +26,7 @@
                 <div class='container'>
                     <div class='widthCon'>
                         <!-- 循环自定义form，根据传入数据生成对应的input/select/checkbox/radio/datepicher/button -->
-                        <formtool v-for='(content,index) in floor3render' :item='content' :key='"floor3"+index'></formtool>
+                        <formtool v-for='(content,index) in floor3render' :item='content' :key='"floor3"+index' @keyValue='getKeyValue'></formtool>
                     </div>
                 </div>
             </div>
@@ -46,8 +46,147 @@
         },
         name: 'creatNewClass',
         props: ['item'],
+        methods: {
+            getKeyValue: function(key, value) {
+                this.getKeyValues[key] = value.value;
+                console.log('creatNewClass', this.getKeyValues)
+            },
+        },
+        beforeMount() {
+            //获取所有学校
+            var that = this;
+            this.$axios
+                .get("/yzh/research/inter/getAllSchool", {
+                    userid: "",
+                    accesstoken: ""
+                })
+                .then(function(res) {
+                    var data = res.data;
+                    var schools = data.schoolList;
+                    var newarr = {
+                        type: "02",
+                        englishname: "schoolName",
+                        name: "所属学校：",
+                        arr: schools.map(function(item) {
+                            return item.schoolName;
+                        }),
+                        style: {
+                            labelWidth: "110px",
+                            labelPosition: "right",
+                            width: "7",
+                            inLine: ""
+                        },
+                        rules: {
+                            rule: [{
+                                required: true,
+                                message: "请选择所属学校",
+                                trigger: "change"
+                            }]
+                        }
+                    };
+                    that.floor1render.splice(0, 1, newarr);
+                }).catch(function(res) {});
+            //获取所有专业
+            this.$axios
+                .get("/yzh/research/inter/getAllProfession", {
+                    userid: "",
+                    accesstoken: ""
+                })
+                .then(function(res) {
+                    var data = res.data;
+                    var professions = data.professionList;
+                    var newarr = {
+                        type: "02",
+                        englishname: "professionName",
+                        name: "所属专业：",
+                        arr: professions.map(function(item) {
+                            return item.professionName
+                        }),
+                        style: {
+                            labelWidth: "110px",
+                            labelPosition: "right",
+                            width: "7"
+                        },
+                        rules: {
+                            rule: [{
+                                required: true,
+                                message: "请选择所属专业",
+                                trigger: "blur"
+                            }]
+                        }
+                    };
+                    that.floor1render.splice(1, 1, newarr);
+                }).catch(function(res) {});
+            //获取所有架构师
+            this.$axios
+                .get("/yzh/research/inter/getAllSchool", {
+                    userid: "",
+                    accesstoken: "",
+                    roleName: 'teacherJGRole'
+                })
+                .then(function(res) {
+                    var data = res.data;
+                    var teacherOne = data.teacherList;
+                    var newarr = {
+                        type: "02",
+                        englishname: "teacherOne",
+                        name: "架构师：",
+                        arr: teacherOne.map(function(item) {
+                            return item.pxTeacherName;
+                        }),
+                        style: {
+                            labelWidth: "110px",
+                            labelPosition: "right",
+                            width: "7",
+                            inLine: ""
+                        },
+                        rules: {
+                            rule: [{
+                                required: true,
+                                message: "请选择架构师",
+                                trigger: "blur"
+                            }]
+                        }
+                    };
+                    that.floor3render.splice(1, 1, newarr);
+                }).catch(function(res) {});
+            //获取所有项目经理
+            this.$axios
+                .get("/yzh/research/inter/getAllSchool", {
+                    userid: "",
+                    accesstoken: "",
+                    roleName: 'teacherXMRole'
+                })
+                .then(function(res) {
+                    var data = res.data;
+                    var teacherTwo = data.teacherList;
+                    var newarr = {
+                        type: "02",
+                        englishname: "teacherTwo",
+                        name: "项目经理：",
+                        arr: teacherOne.map(function(item) {
+                            return item.pxTeacherName;
+                        }),
+                        style: {
+                            labelWidth: "110px",
+                            labelPosition: "right",
+                            width: "7",
+                            inLine: ""
+                        },
+                        rules: {
+                            rule: [{
+                                required: false,
+                                message: "",
+                                trigger: ""
+                            }]
+                        }
+                    };
+                    that.floor3render.splice(0, 1, newarr);
+                }).catch(function(res) {});
+        },
         data() {
             return {
+                getKeyValues: {},
                 // 基本信息数据渲染
                 floor1render: [{ // 所属学校数据渲染
                     type: "02",
@@ -156,7 +295,7 @@
                                 trigger: "change"
                             }]
                         }
-                    },{ //项目经理渲染
+                    }, { //项目经理渲染
                         type: "02",
                         englishname: "teacherTwo",
                         name: "项目经理：",
@@ -170,10 +309,10 @@
                             rule: [{
                                 required: false,
                                 message: '请选择架构师',
-                               trigger: "change"
+                                trigger: "change"
                             }]
                         }
-                    },{ //项目经理渲染
+                    }, { //项目经理渲染
                         type: "02",
                         englishname: "teacherTwo",
                         name: "选择教案：",
@@ -187,10 +326,10 @@
                             rule: [{
                                 required: true,
                                 message: '请选择教案',
-                               trigger: "change"
+                                trigger: "change"
                             }]
                         }
-                    },{ //项目经理渲染
+                    }, { //项目经理渲染
                         type: "02",
                         englishname: "teacherTwo",
                         name: "选择评测：",
@@ -204,7 +343,7 @@
                             rule: [{
                                 required: true,
                                 message: '请选择评测',
-                               trigger: "change"
+                                trigger: "change"
                             }]
                         }
                     },

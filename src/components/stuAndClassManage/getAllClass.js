@@ -196,7 +196,7 @@ export var getStuManagementByStuId = {
             stuTrueName:  function(){
                 return Mock.Random.cname()
             },
-            stuSex: '',
+            stuSex: 'F',
             professionName: '',
             schoolName: '',
             stuPhone: '',

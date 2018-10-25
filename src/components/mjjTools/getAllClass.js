@@ -20,20 +20,13 @@ export var getAllClass = { //获取所有班级
 }
 
 export var getAllSchool = { //3.4	获取所有学校
-    schoolList: [
+    'schoolList|5-8': [
         {
-            schoolName: '青岛学校1',
+            schoolName: function(){
+                return '青岛学校1'+Mock.Random.integer()
+            },
             schoolCode: 'QD01'
-        }, {
-            schoolName: '青岛学校2',
-            schoolCode: 'QD02'
-        }, {
-            schoolName: '青岛学校3',
-            schoolCode: 'QD03'
-        }, {
-            schoolName: '青岛学校4',
-            schoolCode: 'QD04'
-        },
+        }, 
     ]
 }
 export var getAllProfession = { //3.5	获取专业

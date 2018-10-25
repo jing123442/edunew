@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <div class="hello" @click='clickme'>
     <myform></myform>
   </div>
@@ -19,25 +20,24 @@
         import ('./stuAndClassManage/MyForm.vue')
     },
     mounted() {
+=======
+    <div>
+<creatNewStu>   </creatNewStu>
+    </div>
+</template>
+
+<script>
+    import creatNewStu from './creatNewstu.vue'
+    export default {
+         name:'HelloWorld',
+         components:{
+             creatNewStu
+         }
+        
+>>>>>>> 64b77c61b510666fee8984d2ed305039e4e80d8f
     }
-  }
 </script>
 
-
 <style scoped>
-  h1,
-  h2 {
-    font-weight: normal;
-  }
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  li {
-    display: inline-block;
-    margin: 0 10px;
-  }
-  a {
-    color: #42b983;
-  }
+
 </style>

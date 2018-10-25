@@ -14,8 +14,8 @@
 </template>
 
 <script>
-    import MyForm from './stuAndClassManage/MyForm'
-    import MyTable from './stuAndClassManage/MyTable.vue';
+    import MyForm from './mjjTools/MyForm'
+    import MyTable from './mjjTools/MyTable.vue';
     export default {
         components: {
             MyForm,

@@ -2,7 +2,7 @@
   <div class='mjjformtool'>
     <el-form v-if='mounting' ref="form" :model="form" :label-width="item.style.labelWidth||'100px'" :rules='rules2' :label-position='item.style.labelPosition || right' :inline='item.style.inLine||false'>
       <el-form-item :label="item.name" v-if='item.type==1' prop='rule'>
-        <el-input v-model="form.value" @submit.native.prevent @input='blured'></el-input>
+        <el-input v-model="form.value" @input='blured' :type='item.inputType || "text"' :placeholder="item.inputPlaceholder || ''"></el-input>
       </el-form-item>
       <!-- input -->
       <el-form-item :label="item.name" v-if='item.type==2' prop='rule'>
@@ -30,7 +30,7 @@
       </el-form-item>
       <!-- datapick -->
       <el-form-item v-if='item.type==6' prop='rule'>
-        <el-button :type="item.style.buttontype" @click='submited'>{{item.name}}</el-button>
+        <el-button :type="item.style.buttontype" @click='submitFirst'>{{item.name}}</el-button>
         <el-button v-if='item.style.buttonTwo ||false' :style='{marginLeft:item.style.buttonTwoMargenLeft || "30px"}' @click='cancel'>取消</el-button>
       </el-form-item>
       <!-- button -->
@@ -41,19 +41,11 @@
   export default {
     name: "formtool",
     props: ["item"],
-    watch: {
-      form: {
-        handler(newValue, oldValue) {
-          console.log(newValue);
-        },
-        deep: true
-      },
-      item() {}
-    },
     beforeMount() {},
     mounted() {
       var that = this;
       if (typeof this.item.rules == 'object') {
+        console.log('item', this.item);
         this.rules2 = Object.assign({}, this.item.rules);
         for (var i = 0; i < this.rules2.rule.length; i++) {
           if (this.rules2.rule[i].validator) {
@@ -87,8 +79,9 @@
         this.$emit("cancel");
       },
       //确定按钮点击事件
-      submited: function() {
-        this.$emit("submited");
+      submitFirst: function() {
+        this.$emit("submitSecond");
+        console.log('submitFirst')
       }
     }
   };

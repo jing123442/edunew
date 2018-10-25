@@ -133,6 +133,7 @@
                 })
             }
             this.rules = obj;
+            console.log('>>>>>',this.rules)
         },
         data() {
             return {

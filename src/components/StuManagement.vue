@@ -183,7 +183,7 @@
         },
         beforeMount() {
             var that = this;
-            this.$axios.get('/yzh/research/inter/getAllStuManagement').then(function(res) { //获取全部学员数据
+            this.$axios.get('/yzh/research/inter/getAllStuManagement').then(function(res) { //获取全部学员数据,渲染表格
                 if (res.data && res.data.stuManagementList) {
                     var list = res.data.stuManagementList;
                     that.tableData = list.map(function(item, index) {

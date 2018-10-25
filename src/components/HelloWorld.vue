@@ -1,11 +1,10 @@
 <template>
-  <div class="hello">
-    <component :is="componentName"></component>
+  <div class="hello" @click='clickme'>
+    <myform></myform>
   </div>
 </template>
 
 <script>
-  // import creatNewStudent from './creatNewStudent'
   export default {
     name: 'HelloWorld',
     data() {
@@ -13,15 +12,13 @@
         componentName: 'creatNewStudent'
       }
     },
+    methods: {
+    },
     components: {
-      creatNewStudent: () =>
-        import ('./creatNewStudent')
+      myform: () =>
+        import ('./stuAndClassManage/MyForm.vue')
     },
     mounted() {
-      console.log('ppppp')
-      this.$axios.get('/getallclass').then(function(res) {
-        console.log(res)
-      })
     }
   }
 </script>
